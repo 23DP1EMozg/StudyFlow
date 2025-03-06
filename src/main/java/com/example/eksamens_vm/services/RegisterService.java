@@ -3,6 +3,7 @@ package com.example.eksamens_vm.services;
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.UserExistsException;
 import com.example.eksamens_vm.exceptions.UserFieldEmptyException;
+import com.example.eksamens_vm.factory.UserFactory;
 import com.example.eksamens_vm.models.User;
 
 public class RegisterService {
@@ -24,9 +25,9 @@ public class RegisterService {
             throw new UserFieldEmptyException("you must fill all fields!");
         }
 
+        User savedUser = UserFactory.createUser(user);
 
-
-        jsonService.save(user, "users.json", User.class);
+        jsonService.save(savedUser, "users.json", User.class);
         session.setLoggedInUser(user);
         System.out.println("saved user: " + user.getUsername());
     }

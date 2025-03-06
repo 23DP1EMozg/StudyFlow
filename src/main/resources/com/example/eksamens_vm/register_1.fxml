@@ -5,24 +5,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #A0C878;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.RegisterController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.RegisterController">
    <children>
-      <Button fx:id="teacherButton" layoutX="249.0" layoutY="237.0" mnemonicParsing="false" onAction="#selectTeacher" prefHeight="122.0" prefWidth="526.0" style="-fx-background-color: #27667B;" text="Teacher" textFill="WHITE">
+      <Button fx:id="teacherButton" layoutX="249.0" layoutY="237.0" mnemonicParsing="false" onAction="#selectTeacher" prefHeight="122.0" prefWidth="526.0" style="-fx-background-color: #ADB2D4;" text="Teacher" textFill="WHITE">
          <font>
             <Font name="FontAwesome" size="30.0" />
          </font>
       </Button>
-      <Button fx:id="studentButton" layoutX="249.0" layoutY="467.0" mnemonicParsing="false" onAction="#selectStudent" prefHeight="122.0" prefWidth="526.0" style="-fx-background-color: #27667B;" text="Student" textFill="WHITE">
+      <Button fx:id="studentButton" layoutX="249.0" layoutY="467.0" mnemonicParsing="false" onAction="#selectStudent" prefHeight="122.0" prefWidth="526.0" style="-fx-background-color: #ADB2D4;" text="Student" textFill="WHITE">
          <font>
             <Font name="FontAwesome" size="30.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register as" textAlignment="CENTER" wrappingWidth="1024.0">
+      <Text layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register as" textAlignment="CENTER" wrappingWidth="1024.0">
          <font>
             <Font name="Impact" size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="7.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" textAlignment="CENTER" wrappingWidth="1024.0">
+      <Text layoutX="7.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" textAlignment="CENTER" wrappingWidth="1024.0">
          <font>
             <Font name="Impact" size="30.0" />
          </font>

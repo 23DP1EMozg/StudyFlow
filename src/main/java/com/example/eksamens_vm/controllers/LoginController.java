@@ -8,6 +8,7 @@ import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.JsonService;
 import com.example.eksamens_vm.services.LoginService;
 import com.example.eksamens_vm.services.UserService;
+import com.example.eksamens_vm.utils.SceneManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
@@ -56,31 +57,14 @@ public class LoginController implements Initializable {
         try{
             loginService.login(usernameField.getText(), passwordField.getText());
 
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/eksamens_vm/home.fxml"));
-
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 1024, 768);
-            stage.setTitle("register");
-            stage.setScene(scene);
-            stage.show();
+            SceneManager.switchScenes(event, "/com/example/eksamens_vm/home_teacher.fxml", "home");
         }catch (UserNotFoundException | InvalidCredentialsException |UserFieldEmptyException e){
             text.setText(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public void toRegister(ActionEvent event) throws IOException, URISyntaxException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/eksamens_vm/register_1.fxml"));
-
-        Parent root = loader.load();
-        Scene scene = new Scene(root, 1024, 768);
-        stage.setTitle("register");
-        stage.setScene(scene);
-        stage.show();
-
+        SceneManager.switchScenes(event, "/com/example/eksamens_vm/register_1.fxml", "register");
     }
 
     @Override

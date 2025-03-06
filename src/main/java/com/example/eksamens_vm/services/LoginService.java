@@ -17,7 +17,7 @@ public class LoginService {
 
     public void login(String username, String password) throws UserNotFoundException, InvalidCredentialsException, UserFieldEmptyException {
 
-        User user = (Student)userService.getUserByUsername(username);
+        User user = userService.getUserByUsername(username);
 
        if(username.isBlank() || password.isBlank()){
            throw new UserFieldEmptyException("cannot leave fields empty");
@@ -31,17 +31,6 @@ public class LoginService {
            throw new InvalidCredentialsException("incorrect password");
        }
 
-       if(user.getUserRole() == UserRole.STUDENT){
-           User student = new Student(
-                   user.getId(),
-                   user.getUsername(),
-                   user.getPassword(),
-                   user.getUserRole(),
-                   "DP2-1"
-           );
-
-           ((Student) student).getGroup();
-       }
 
        session.setLoggedInUser(user);
     }

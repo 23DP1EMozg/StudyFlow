@@ -17,7 +17,7 @@ public class UserFactory {
                     user.getUsername(),
                     user.getPassword(),
                     user.getUserRole(),
-                    null
+                    "DP2-1"
             );
             case TEACHER -> new Teacher(
                     user.getId(),

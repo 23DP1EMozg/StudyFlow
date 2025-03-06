@@ -28,6 +28,7 @@ public class JsonService {
         List<T> list = getAll(path, clazz);
         list.add(object);
         saveMany(list, path);
+        System.out.println(object.toString());
     }
 
     public <T> void saveMany(List<T> objects, String path) {

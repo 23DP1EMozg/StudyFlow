@@ -8,6 +8,7 @@ import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.JsonService;
 import com.example.eksamens_vm.services.RegisterService;
 import com.example.eksamens_vm.services.UserService;
+import com.example.eksamens_vm.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +30,7 @@ import java.util.ResourceBundle;
 
 public class RegisterController{
 
-    private UserRole userRole;
+    private static UserRole userRole;
     private RegisterService registerService = new RegisterService();
     private UserService userService = new UserService();
 
@@ -44,66 +45,72 @@ public class RegisterController{
 
     @FXML
     private Text alert;
+    @FXML
+    private Button registerButton;
 
+
+
+    public static void setUserRole(UserRole role) {
+        userRole = role;
+    }
+
+    public static UserRole getUserRole() {
+        return userRole;
+    }
 
     public void selectTeacher(ActionEvent event) {
-        userRole = UserRole.TEACHER;
+        setUserRole(UserRole.TEACHER);
+        System.out.println(userRole);
         continueRegister(event);
     }
 
     public void selectStudent(ActionEvent event){
-        userRole = UserRole.STUDENT;
+        setUserRole(UserRole.STUDENT);
+        System.out.println(userRole);
         continueRegister(event);
     }
-
+    public void print(){
+        System.out.println("User Role: " + getUserRole());
+    }
     private void continueRegister(ActionEvent event) {
         try{
+            print();
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/eksamens_vm/register_2.fxml"));
             Parent root = fxmlLoader.load();
             stage.setScene(new Scene(root));
             stage.show();
+
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public void register(ActionEvent event) {
+
+
+    public void register(ActionEvent event){
         try{
+            print();
             if(!passwordField.getText().equals(passwordAgainField.getText())){
                 alert.setText("Passwords do not match!");
                 return;
             }
-
             int id = userService.generateNewId();
-            User user = new User(id, usernameField.getText(), passwordField.getText(), userRole);
-            User savedUser = UserFactory.createUser(user);
-            registerService.register(savedUser);
+            User user = new User(id, usernameField.getText(), passwordField.getText(), getUserRole());
+            registerService.register(user);
 
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/eksamens_vm/login.fxml"));
-            Parent root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.show();
+            SceneManager.switchScenes(event, "/com/example/eksamens_vm/login.fxml", "login");
 
         }catch (UserExistsException | UserFieldEmptyException e){
             alert.setText(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
 
     public void toLogin(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/eksamens_vm/login.fxml"));
-
-        Parent root = loader.load();
-        Scene scene = new Scene(root, 1024, 768);
-        stage.setTitle("login");
-        stage.setScene(scene);
-        stage.show();
+        SceneManager.switchScenes(event, "/com/example/eksamens_vm/login.fxml", "login");
     }
+
 
 
 }
