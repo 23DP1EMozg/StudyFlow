@@ -27,6 +27,11 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="426.0" layoutY="413.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="171.0" text="Join" />
+      <Button layoutX="426.0" layoutY="413.0" mnemonicParsing="false" onAction="#joinRoom" prefHeight="25.0" prefWidth="171.0" text="Join" />
+      <Text fx:id="error" fill="RED" layoutX="20.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1025.3333333333335">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

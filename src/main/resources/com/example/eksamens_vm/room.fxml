@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.eksamens_vm.controllers.RoomController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.RoomController">
+   <children>
+      <Pane prefHeight="99.0" prefWidth="1024.0" style="-fx-background-color: #ADB2D4;">
+         <children>
+            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Text fx:id="text" layoutX="390.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="270.13671875" />
+   </children>
 </AnchorPane>

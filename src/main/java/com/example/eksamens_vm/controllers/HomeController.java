@@ -1,7 +1,9 @@
 package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
+import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
+import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.UserService;
@@ -30,10 +32,12 @@ public class HomeController implements Initializable {
     private Text welcome;
     @FXML
     private ChoiceBox<String> choiceBox;
+    @FXML
+    private Text error;
 
-    Session session = Session.getInstance();
-    Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
-    RoomService roomService = new RoomService();
+    private Session session = Session.getInstance();
+    private Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
+    private RoomService roomService = new RoomService();
 
 
     @Override
@@ -47,6 +51,18 @@ public class HomeController implements Initializable {
     @FXML
     private void toCreateRoom(ActionEvent event) {
         SceneManager.switchScenes(event, "create_room.fxml", "create room");
+    }
+
+    @FXML
+    private void joinRoom(ActionEvent event) {
+        String roomName = choiceBox.getValue();
+        try {
+            Room room = roomService.getRoomByName(roomName);
+            session.setJoinedRoom(room);
+            SceneManager.switchScenes(event, "room.fxml", room.getName());
+        } catch (RoomNotFoundException e) {
+            error.setText(e.getMessage());
+        }
     }
 
 

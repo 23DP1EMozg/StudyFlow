@@ -54,7 +54,22 @@ public class RoomService {
                 .orElseThrow(() -> new RoomNotFoundException("room not found!"));
     }
 
+    public Room getRoomByName(String name) throws RoomNotFoundException {
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        return rooms.stream().filter(room -> room.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new RoomNotFoundException("room not found!"));
+    }
+
     public void addStudent(Student student, int roomId){
+
+    }
+
+    public void joinRoom(String name) throws InputFieldEmptyException {
+        if(name.isBlank()){
+            throw new InputFieldEmptyException("select room!");
+        }
+
 
     }
 }
