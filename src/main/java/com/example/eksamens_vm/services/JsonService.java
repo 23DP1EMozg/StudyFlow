@@ -28,7 +28,7 @@ public class JsonService {
         List<T> list = getAll(path, clazz);
         list.add(object);
         saveMany(list, path);
-        System.out.println(object.toString());
+
     }
 
     public <T> void saveMany(List<T> objects, String path) {
@@ -37,7 +37,6 @@ public class JsonService {
         try(FileWriter fw = new FileWriter(filePath.toFile())) {
 
             gson.toJson(objects, fw);
-            System.out.println("saved!");
         }catch (IOException e){
             e.printStackTrace();
         }

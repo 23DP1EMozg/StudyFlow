@@ -13,9 +13,9 @@ public class SceneManager {
 
     public static void switchScenes(ActionEvent event, String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 1024, 768);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

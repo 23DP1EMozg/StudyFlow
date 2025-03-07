@@ -2,7 +2,7 @@ package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.UserExistsException;
-import com.example.eksamens_vm.exceptions.UserFieldEmptyException;
+import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
 import com.example.eksamens_vm.factory.UserFactory;
 import com.example.eksamens_vm.models.User;
 
@@ -12,7 +12,7 @@ public class RegisterService {
     UserService userService = new UserService();
     Session session = Session.getInstance();
 
-    public void register(User user) throws UserExistsException, UserFieldEmptyException {
+    public void register(User user) throws UserExistsException, InputFieldEmptyException {
 
         if(userService.userExists(user.getUsername())) {
             throw new UserExistsException("user already exists!");
@@ -22,7 +22,7 @@ public class RegisterService {
             user.getUsername().isBlank() ||
             user.getPassword().isBlank()
         ){
-            throw new UserFieldEmptyException("you must fill all fields!");
+            throw new InputFieldEmptyException("you must fill all fields!");
         }
 
         User savedUser = UserFactory.createUser(user);

@@ -1,11 +1,9 @@
 package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.data.Session;
-import com.example.eksamens_vm.enums.UserRole;
 import com.example.eksamens_vm.exceptions.InvalidCredentialsException;
-import com.example.eksamens_vm.exceptions.UserFieldEmptyException;
+import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Student;
 import com.example.eksamens_vm.models.User;
 
 
@@ -15,12 +13,12 @@ public class LoginService {
     private UserService userService = new UserService();
     private Session session = Session.getInstance();
 
-    public void login(String username, String password) throws UserNotFoundException, InvalidCredentialsException, UserFieldEmptyException {
+    public User login(String username, String password) throws UserNotFoundException, InvalidCredentialsException, InputFieldEmptyException {
 
         User user = userService.getUserByUsername(username);
 
        if(username.isBlank() || password.isBlank()){
-           throw new UserFieldEmptyException("cannot leave fields empty");
+           throw new InputFieldEmptyException("cannot leave fields empty");
        }
 
        if(user == null){
@@ -33,5 +31,7 @@ public class LoginService {
 
 
        session.setLoggedInUser(user);
+
+       return user;
     }
 }
