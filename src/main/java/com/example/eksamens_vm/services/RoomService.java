@@ -6,6 +6,7 @@ import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.Student;
+import com.example.eksamens_vm.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,50 @@ public class RoomService {
 
         return joinCode;
 
+    }
+
+    public Room getRoomByJoinCode(int joinCode) throws RoomNotFoundException {
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        return rooms.stream().filter(r -> r.getJoinCode() == joinCode)
+                .findFirst()
+                .orElseThrow(() -> new RoomNotFoundException("room not found!"));
+    }
+
+    public Room requestRoom(int joinCode, User user) throws RoomNotFoundException {
+        Room room = getRoomByJoinCode(joinCode);
+        List<User> roomRequests = room.getJoinRequests();
+        List<Room> allRooms = jsonService.getAll("rooms.json", Room.class);
+        roomRequests.add(user);
+        room.setJoinRequests(roomRequests);
+
+        for(int i = 0; i<allRooms.size(); i++){
+            if(allRooms.get(i).getId() == room.getId()){
+                allRooms.set(i, room);
+                jsonService.saveMany(allRooms, "rooms.json");
+                return room;
+            }
+        }
+
+        throw new RoomNotFoundException("room not found!");
+    }
+
+    public List<String> getAllRequestsNames(int roomId) throws RoomNotFoundException {
+        Room room = getRoomById(roomId);
+        List<String> names = new ArrayList<>();
+
+        for(int i = 0; i<room.getJoinRequests().size(); i++){
+            names.add(room.getJoinRequests().get(i).getUsername());
+        }
+
+        return names;
+    }
+
+    public void removeUserFromRequest(int userId, int roomId) throws RoomNotFoundException {
+
+    }
+
+    public void acceptUserRequest(User user, int roomId) throws RoomNotFoundException {
+        Room room = getRoomById(roomId);
     }
 
 }

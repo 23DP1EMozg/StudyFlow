@@ -12,9 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -35,6 +37,7 @@ public class HomeController implements Initializable {
     private Text error;
     @FXML
     private TextField requestCodeInput;
+
 
     private Session session = Session.getInstance();
     private Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
@@ -80,6 +83,15 @@ public class HomeController implements Initializable {
 
     @FXML
     private void requestRoom(){
+        int joinCode = Integer.parseInt(requestCodeInput.getText());
 
+        try{
+            Room room = roomService.requestRoom(joinCode, session.getLoggedInUser());
+            error.setFill(Color.GREENYELLOW);
+            error.setText("Requested to join room- " + room.getName());
+
+        }catch (RoomNotFoundException e){
+            error.setText(e.getMessage());
+        }
     }
 }

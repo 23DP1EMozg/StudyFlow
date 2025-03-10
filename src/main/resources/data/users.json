@@ -6,41 +6,32 @@
     "id": 1,
     "rooms": [
       {
-        "id": 1,
-        "name": "room",
+        "id": 3,
+        "name": "rodeon",
         "students": [],
         "owner": 1,
         "joinRequests": [],
-        "joinCode": 74300042
+        "joinCode": 23529738
       }
     ]
   },
   {
-    "username": "white",
+    "username": "rodeon",
     "password": "1",
-    "userType": "TEACHER",
+    "userType": "STUDENT",
     "id": 2,
     "rooms": []
   },
   {
-    "username": "deivids",
+    "username": "sigma",
     "password": "1",
-    "userType": "TEACHER",
+    "userType": "STUDENT",
     "id": 3,
-    "rooms": [
-      {
-        "id": 2,
-        "name": "rodeon_dungeon",
-        "students": [],
-        "owner": 3,
-        "joinRequests": [],
-        "joinCode": 11171398
-      }
-    ]
+    "rooms": []
   },
   {
     "group": "DP2-1",
-    "username": "kristaps",
+    "username": "nils",
     "password": "1",
     "userType": "STUDENT",
     "id": 4,
