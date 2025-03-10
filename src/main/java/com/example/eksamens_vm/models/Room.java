@@ -7,12 +7,16 @@ public class Room {
     private String name;
     private List<User> students;
     private int owner;
+    private List<User> joinRequests;
+    private int joinCode;
 
-    public Room(List<User> students, int id, String name, int owner) {
+    public Room(List<User> students, int id, String name, int owner, List<User> joinRequests, int joinCode) {
         this.students = students;
         this.id = id;
         this.name = name;
         this.owner = owner;
+        this.joinRequests = joinRequests;
+        this.joinCode = joinCode;
     }
 
     public int getId() {
@@ -45,5 +49,21 @@ public class Room {
 
     public void setOwner(int owner) {
         this.owner = owner;
+    }
+
+    public int getJoinCode() {
+        return joinCode;
+    }
+
+    public void setJoinCode(int joinCode) {
+        this.joinCode = joinCode;
+    }
+
+    public List<User> getJoinRequests() {
+        return joinRequests;
+    }
+
+    public void setJoinRequests(List<User> joinRequests) {
+        this.joinRequests = joinRequests;
     }
 }

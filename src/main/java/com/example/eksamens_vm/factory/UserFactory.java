@@ -4,6 +4,8 @@ import com.example.eksamens_vm.models.Student;
 import com.example.eksamens_vm.models.Teacher;
 import com.example.eksamens_vm.models.User;
 
+import java.util.List;
+
 public class UserFactory {
 
     public static User createUser(User user) {
@@ -11,19 +13,21 @@ public class UserFactory {
             return null;
         }
 
-        return switch(user.getUserRole()){
+        return switch(user.getUserType()){
             case STUDENT -> new Student(
                     user.getId(),
                     user.getUsername(),
                     user.getPassword(),
-                    user.getUserRole(),
-                    "DP2-1"
+                    user.getUserType(),
+                    "DP2-1",
+                    List.of()
             );
             case TEACHER -> new Teacher(
                     user.getId(),
                     user.getUsername(),
                     user.getPassword(),
-                    user.getUserRole()
+                    user.getUserType(),
+                    List.of()
             );
         };
     }

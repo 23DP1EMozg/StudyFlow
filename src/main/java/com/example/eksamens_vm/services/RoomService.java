@@ -2,19 +2,23 @@ package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
+import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RoomService {
     Session session;
     JsonService jsonService;
+    UserService userService;
     public RoomService() {
         this.session = Session.getInstance();
         this.jsonService = new JsonService();
+        this.userService = new UserService();
     }
 
     public void createRoom(String name) throws InputFieldEmptyException {
@@ -26,10 +30,17 @@ public class RoomService {
                 List.of(),
                 generateRoomId(),
                 name,
-                session.getLoggedInUser().getId()
+                session.getLoggedInUser().getId(),
+                List.of(),
+                generateJoinCode()
         );
 
         jsonService.save(room, "rooms.json", Room.class);
+        try {
+            userService.addRoom(session.getLoggedInUser(), room);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -65,11 +76,30 @@ public class RoomService {
 
     }
 
-    public void joinRoom(String name) throws InputFieldEmptyException {
-        if(name.isBlank()){
-            throw new InputFieldEmptyException("select room!");
+    private int getNewJoinCode(){
+        Random random = new Random();
+        return 10000000 + random.nextInt(90000000);
+    }
+
+    private boolean codeExists(int code){
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        for(int i = 0; i<rooms.size(); i++){
+            if(rooms.get(i).getId() == code){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int generateJoinCode(){
+        int joinCode = getNewJoinCode();
+
+        while(codeExists(joinCode)){
+            joinCode = getNewJoinCode();
         }
 
+        return joinCode;
 
     }
+
 }

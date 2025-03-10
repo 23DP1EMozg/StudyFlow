@@ -1,26 +1,18 @@
 [
   {
     "id": 1,
-    "name": "rvt",
+    "name": "room",
     "students": [],
-    "owner": 1
+    "owner": 1,
+    "joinRequests": [],
+    "joinCode": 74300042
   },
   {
     "id": 2,
-    "name": "rtk",
+    "name": "rodeon_dungeon",
     "students": [],
-    "owner": 1
-  },
-  {
-    "id": 3,
-    "name": "igkv",
-    "students": [],
-    "owner": 1
-  },
-  {
-    "id": 4,
-    "name": "your_mom",
-    "students": [],
-    "owner": 1
+    "owner": 3,
+    "joinRequests": [],
+    "joinCode": 11171398
   }
 ]

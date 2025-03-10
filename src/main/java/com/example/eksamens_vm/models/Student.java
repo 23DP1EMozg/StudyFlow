@@ -2,14 +2,17 @@ package com.example.eksamens_vm.models;
 
 import com.example.eksamens_vm.enums.UserRole;
 
+import java.util.List;
+
 public class Student extends User{
     private String group;
     public Student(int id,
                    String username,
                    String password,
                    UserRole role,
-                   String group) {
-        super(id, username, password, role);
+                   String group,
+                   List<Room> rooms) {
+        super(id, username, password, role, rooms);
         this.group = group;
     }
 

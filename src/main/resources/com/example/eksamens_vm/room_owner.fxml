@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.RoomOwnerController">
+   <children>
+      <Pane prefHeight="99.0" prefWidth="1024.0" style="-fx-background-color: #ADB2D4;">
+         <children>
+            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="text" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="1024.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Label fx:id="joinCode" layoutX="727.0" layoutY="119.0" prefHeight="35.0" prefWidth="249.0" text="Join Code- 00000000">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

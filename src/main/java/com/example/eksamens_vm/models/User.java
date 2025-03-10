@@ -1,7 +1,8 @@
 package com.example.eksamens_vm.models;
 
 import com.example.eksamens_vm.enums.UserRole;
-import com.example.eksamens_vm.services.UserService;
+
+import java.util.List;
 
 public class User {
 
@@ -9,22 +10,23 @@ public class User {
     private String password;
     private UserRole userType;
     private int id;
+    private List<Room> rooms;
 
 
-
-    public User(int id, String username, String password, UserRole userRole) {
+    public User(int id, String username, String password, UserRole userRole, List<Room> rooms) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.userType = userRole;
+        this.rooms = rooms;
 
     }
 
-    public UserRole getUserRole() {
+    public UserRole getUserType() {
         return userType;
     }
 
-    public void setUserRole(UserRole userType) {
+    public void setUserType(UserRole userType) {
         this.userType = userType;
     }
 
@@ -51,6 +53,16 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+
 
     @Override
     public String toString() {

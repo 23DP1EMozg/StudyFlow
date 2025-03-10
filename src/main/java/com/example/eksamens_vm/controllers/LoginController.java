@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
         try{
             User user = loginService.login(usernameField.getText(), passwordField.getText());
             SceneManager.switchScenes(event,
-                    user.getUserRole().equals(UserRole.STUDENT) ? "home_student.fxml" : "home_teacher.fxml",
+                    user.getUserType().equals(UserRole.STUDENT) ? "home_student.fxml" : "home_teacher.fxml",
                     "home");
         }catch (UserNotFoundException | InvalidCredentialsException | InputFieldEmptyException e){
             text.setText(e.getMessage());

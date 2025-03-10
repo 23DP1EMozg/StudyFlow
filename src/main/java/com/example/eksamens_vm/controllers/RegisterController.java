@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.List;
 
 public class RegisterController{
 
@@ -73,7 +74,7 @@ public class RegisterController{
                 return;
             }
             int id = userService.generateNewId();
-            User user = new User(id, usernameField.getText(), passwordField.getText(), getUserRole());
+            User user = new User(id, usernameField.getText(), passwordField.getText(), getUserRole(), List.of());
             registerService.register(user);
 
             SceneManager.switchScenes(event, "login.fxml", "login");

@@ -3,6 +3,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
@@ -11,8 +12,12 @@
       <Pane prefHeight="99.0" prefWidth="1024.0" style="-fx-background-color: #ADB2D4;">
          <children>
             <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="text" layoutX="-14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="1024.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
-      <Text fx:id="text" layoutX="390.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="270.13671875" />
    </children>
 </AnchorPane>

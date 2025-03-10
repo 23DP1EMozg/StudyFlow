@@ -2,13 +2,48 @@
   {
     "username": "nigga",
     "password": "1",
-    "userType": "STUDENT",
-    "id": 1
+    "userType": "TEACHER",
+    "id": 1,
+    "rooms": [
+      {
+        "id": 1,
+        "name": "room",
+        "students": [],
+        "owner": 1,
+        "joinRequests": [],
+        "joinCode": 74300042
+      }
+    ]
   },
   {
-    "username": "name",
-    "password": "pwd",
+    "username": "white",
+    "password": "1",
     "userType": "TEACHER",
-    "id": 2
+    "id": 2,
+    "rooms": []
+  },
+  {
+    "username": "deivids",
+    "password": "1",
+    "userType": "TEACHER",
+    "id": 3,
+    "rooms": [
+      {
+        "id": 2,
+        "name": "rodeon_dungeon",
+        "students": [],
+        "owner": 3,
+        "joinRequests": [],
+        "joinCode": 11171398
+      }
+    ]
+  },
+  {
+    "group": "DP2-1",
+    "username": "kristaps",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 4,
+    "rooms": []
   }
 ]

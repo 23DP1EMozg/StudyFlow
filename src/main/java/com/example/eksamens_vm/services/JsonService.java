@@ -1,6 +1,7 @@
 package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.enums.UserRole;
+import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.models.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,6 +59,20 @@ public class JsonService {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    public <T> void update(String path,T object, Class<T> clazz) throws NotFoundException {
+        List<T> objects = getAll(path, clazz);
+
+        for(int i = 0; i<objects.size(); i++){
+            if(objects.get(i).equals(object)){
+                objects.set(i, object);
+                saveMany(objects, path);
+                return;
+            }
+        }
+
+        throw new NotFoundException("not found");
     }
 
 }
