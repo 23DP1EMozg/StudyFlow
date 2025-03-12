@@ -10,10 +10,10 @@ public class User {
     private String password;
     private UserRole userType;
     private int id;
-    private List<Room> rooms;
+    private List<Integer> rooms;
 
 
-    public User(int id, String username, String password, UserRole userRole, List<Room> rooms) {
+    public User(int id, String username, String password, UserRole userRole, List<Integer> rooms) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -54,11 +54,11 @@ public class User {
         this.id = id;
     }
 
-    public List<Room> getRooms() {
+    public List<Integer> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(List<Integer> rooms) {
         this.rooms = rooms;
     }
 

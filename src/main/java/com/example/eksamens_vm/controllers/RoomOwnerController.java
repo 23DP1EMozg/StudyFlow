@@ -1,11 +1,15 @@
 package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
+import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
+import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.JsonService;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.UserService;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +37,8 @@ public class RoomOwnerController implements Initializable {
     private Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
     private Session session = Session.getInstance();
     private RoomService roomService = new RoomService();
-
+    private String selectedUserRequest;
+    private UserService userService = new UserService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,16 +52,56 @@ public class RoomOwnerController implements Initializable {
             );
         } catch (RoomNotFoundException e) {
             throw new RuntimeException(e);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
         }
+
+        requestList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                selectedUserRequest = requestList.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     @FXML
     private void acceptUser(ActionEvent event) {
-
+        if(selectedUserRequest != null){
+            User user = userService.getUserByUsername(selectedUserRequest);
+            try {
+                roomService.acceptUserRequest(user.getId(), session.getJoinedRoom().getId());
+                requestList.getItems().clear();
+                requestList.getItems().addAll(
+                        roomService.getAllRequestsNames(session.getJoinedRoom().getId())
+                );
+            } catch (RoomNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @FXML
     private void rejectUser(ActionEvent event) {
-
+        if(selectedUserRequest != null){
+            User user = userService.getUserByUsername(selectedUserRequest);
+            try {
+                roomService.rejectUserRequest(user.getId(), session.getJoinedRoom().getId());
+                requestList.getItems().clear();
+                requestList.getItems().addAll(
+                        roomService.getAllRequestsNames(session.getJoinedRoom().getId())
+                );
+                System.out.println(roomService.getAllRequestsNames(session.getJoinedRoom().getId()));
+            } catch (RoomNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

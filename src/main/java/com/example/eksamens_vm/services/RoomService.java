@@ -4,6 +4,7 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
 import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
+import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.Student;
 import com.example.eksamens_vm.models.User;
@@ -21,6 +22,8 @@ public class RoomService {
         this.jsonService = new JsonService();
         this.userService = new UserService();
     }
+
+
 
     public void createRoom(String name) throws InputFieldEmptyException {
         if(name.isBlank()){
@@ -112,9 +115,9 @@ public class RoomService {
 
     public Room requestRoom(int joinCode, User user) throws RoomNotFoundException {
         Room room = getRoomByJoinCode(joinCode);
-        List<User> roomRequests = room.getJoinRequests();
+        List<Integer> roomRequests = room.getJoinRequests();
         List<Room> allRooms = jsonService.getAll("rooms.json", Room.class);
-        roomRequests.add(user);
+        roomRequests.add(user.getId());
         room.setJoinRequests(roomRequests);
 
         for(int i = 0; i<allRooms.size(); i++){
@@ -128,23 +131,69 @@ public class RoomService {
         throw new RoomNotFoundException("room not found!");
     }
 
-    public List<String> getAllRequestsNames(int roomId) throws RoomNotFoundException {
+    public List<String> getAllRequestsNames(int roomId) throws RoomNotFoundException, UserNotFoundException {
         Room room = getRoomById(roomId);
         List<String> names = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         for(int i = 0; i<room.getJoinRequests().size(); i++){
-            names.add(room.getJoinRequests().get(i).getUsername());
+            users.add(userService.getUserById(room.getJoinRequests().get(i)));
+        }
+
+        for(int i = 0; i<users.size(); i++){
+            names.add(users.get(i).getUsername());
         }
 
         return names;
     }
 
-    public void removeUserFromRequest(int userId, int roomId) throws RoomNotFoundException {
+    public void removeUserFromRequest(int userId, int roomId) throws RoomNotFoundException, UserNotFoundException {
+        Room room = getRoomById(roomId);
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        List<Integer> roomRequests = room.getJoinRequests();
+
+
+        roomRequests.removeIf(r -> r == userId);
+        room.setJoinRequests(roomRequests);
+
+        for(int i = 0; i<rooms.size(); i++){
+            if(rooms.get(i).getId() == roomId){
+                rooms.set(i, room);
+                jsonService.saveMany(rooms, "rooms.json");
+                return;
+            }
+        }
 
     }
 
-    public void acceptUserRequest(User user, int roomId) throws RoomNotFoundException {
+    public void acceptUserRequest(int userId, int roomId) throws RoomNotFoundException, NotFoundException, UserNotFoundException {
         Room room = getRoomById(roomId);
+        User user = userService.getUserById(userId);
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        userService.addRoom(user, room);
+        List<Integer> roomUsers = room.getStudents();
+        roomUsers.add(user.getId());
+        room.setStudents(roomUsers);
+
+        List<Integer> roomRequests = room.getJoinRequests();
+        roomRequests.removeIf(r -> r == userId);
+        room.setJoinRequests(roomRequests);
+
+
+        removeUserFromRequest(user.getId(), roomId);
+        for(int i = 0; i<rooms.size(); i++){
+            if(rooms.get(i).getId() == roomId){
+                rooms.set(i, room);
+                jsonService.saveMany(rooms, "rooms.json");
+                return;
+            }
+        }
+
+    }
+
+    public void rejectUserRequest(int userId, int roomId) throws RoomNotFoundException, NotFoundException, UserNotFoundException {
+        User user = userService.getUserById(userId);
+        removeUserFromRequest(user.getId(), roomId);
     }
 
 }

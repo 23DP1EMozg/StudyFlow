@@ -8,8 +8,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SceneManager {
+
+    private static List<String> history = new ArrayList<>();
+
+    public SceneManager() {
+        history.add("login.fxml");
+    }
 
     public static void switchScenes(ActionEvent event, String fxmlFile, String title) {
         try {
@@ -22,8 +30,12 @@ public class SceneManager {
             stage.setTitle(title);
             stage.setResizable(false);
             stage.show();
+            history.add(fxmlFile);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void goBack(ActionEvent event) {}
 }

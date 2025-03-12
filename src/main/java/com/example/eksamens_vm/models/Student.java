@@ -11,7 +11,7 @@ public class Student extends User{
                    String password,
                    UserRole role,
                    String group,
-                   List<Room> rooms) {
+                   List<Integer> rooms) {
         super(id, username, password, role, rooms);
         this.group = group;
     }

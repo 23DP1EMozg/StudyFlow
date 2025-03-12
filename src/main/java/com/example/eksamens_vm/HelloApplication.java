@@ -1,5 +1,7 @@
 package com.example.eksamens_vm;
 
+import com.example.eksamens_vm.services.RoomService;
+import com.example.eksamens_vm.services.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +20,8 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {

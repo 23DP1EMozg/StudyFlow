@@ -5,36 +5,23 @@
     "userType": "TEACHER",
     "id": 1,
     "rooms": [
-      {
-        "id": 3,
-        "name": "rodeon",
-        "students": [],
-        "owner": 1,
-        "joinRequests": [],
-        "joinCode": 23529738
-      }
+      1
     ]
-  },
-  {
-    "username": "rodeon",
-    "password": "1",
-    "userType": "STUDENT",
-    "id": 2,
-    "rooms": []
   },
   {
     "username": "sigma",
     "password": "1",
     "userType": "STUDENT",
-    "id": 3,
-    "rooms": []
+    "id": 2,
+    "rooms": [
+      1
+    ]
   },
   {
-    "group": "DP2-1",
-    "username": "nils",
+    "username": "reinis",
     "password": "1",
     "userType": "STUDENT",
-    "id": 4,
+    "id": 3,
     "rooms": []
   }
 ]

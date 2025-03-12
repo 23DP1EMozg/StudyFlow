@@ -11,7 +11,6 @@ public class RegisterService {
     JsonService jsonService = new JsonService();
     UserService userService = new UserService();
     Session session = Session.getInstance();
-
     public void register(User user) throws UserExistsException, InputFieldEmptyException {
 
         if(userService.userExists(user.getUsername())) {

@@ -49,7 +49,11 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcome.setText("Welcome " + session.getLoggedInUser().getUsername() + "!");
         logo.setImage(image);
-        choiceBox.getItems().addAll(userService.getAllRoomNames(session.getLoggedInUser()));
+        try {
+            choiceBox.getItems().addAll(userService.getAllRoomNames(session.getLoggedInUser()));
+        } catch (RoomNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.exceptions.NotFoundException;
+import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
@@ -12,6 +13,7 @@ import java.util.List;
 public class UserService {
 
     private JsonService jsonService = new JsonService();
+
 
     public int generateNewId(){
          List<User> users = jsonService.getAll("users.json", User.class);
@@ -39,12 +41,15 @@ public class UserService {
 
     }
 
-    public List<String> getAllRoomNames(User user){
+    public List<String> getAllRoomNames(User user) throws RoomNotFoundException {
         List<String> names = new ArrayList<>();
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
 
 
         for(int i = 0; i<user.getRooms().size(); i++){
-            names.add(user.getRooms().get(i).getName());
+            if(user.getRooms().get(i) == rooms.get(i).getId()){
+                names.add(rooms.get(i).getName());
+            }
         }
         return names;
     }
@@ -52,18 +57,23 @@ public class UserService {
 
 
     public void addRoom(User user, Room room) throws NotFoundException {
-        List<Room> rooms = user.getRooms();
+        List<Integer> rooms = user.getRooms();
         List<User> users = jsonService.getAll("users.json", User.class);
-        rooms.add(room);
+
+
+
+        if (!rooms.contains(room)) {
+            rooms.add(room.getId());
+        }
         user.setRooms(rooms);
 
-        for(int i = 0; i<users.size(); i++){
-            if(users.get(i).getId() == user.getId()){
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId() == user.getId()) {
                 users.set(i, user);
                 jsonService.saveMany(users, "users.json");
                 return;
             }
         }
-        throw new NotFoundException("not found!");
+        throw new NotFoundException("User not found!");
     }
 }
