@@ -5,6 +5,9 @@ import com.example.eksamens_vm.exceptions.UserExistsException;
 import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
 import com.example.eksamens_vm.factory.UserFactory;
 import com.example.eksamens_vm.models.User;
+import com.example.eksamens_vm.utils.SceneManager;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 public class RegisterService {
 
@@ -30,4 +33,5 @@ public class RegisterService {
         session.setLoggedInUser(user);
         System.out.println("saved user: " + user.getUsername());
     }
+
 }

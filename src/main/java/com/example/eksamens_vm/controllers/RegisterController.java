@@ -88,7 +88,10 @@ public class RegisterController{
     public void toLogin(ActionEvent event) throws IOException {
         SceneManager.switchScenes(event, "login.fxml", "login");
     }
-
+    @FXML
+    private void goBack(ActionEvent event) {
+        SceneManager.goBack(event);
+    }
 
 
 }

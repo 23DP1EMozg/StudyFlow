@@ -8,6 +8,7 @@ import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.JsonService;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.UserService;
+import com.example.eksamens_vm.utils.SceneManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -103,5 +104,10 @@ public class RoomOwnerController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) {
+        SceneManager.goBack(event);
     }
 }

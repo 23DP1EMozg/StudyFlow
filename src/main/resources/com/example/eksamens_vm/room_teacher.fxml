@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -10,12 +11,13 @@
    <children>
       <Pane prefHeight="99.0" prefWidth="1024.0" style="-fx-background-color: #ADB2D4;">
          <children>
-            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="926.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="text" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="1024.0">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="55.0" text="Back" />
          </children>
       </Pane>
    </children>

@@ -98,4 +98,9 @@ public class HomeController implements Initializable {
             error.setText(e.getMessage());
         }
     }
+
+    @FXML
+    private void goBack(ActionEvent event){
+        SceneManager.goBack(event);
+    }
 }

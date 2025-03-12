@@ -58,6 +58,11 @@ public class LoginController implements Initializable {
         SceneManager.switchScenes(event, "register_1.fxml", "register");
     }
 
+    @FXML
+    private void goBack(ActionEvent event) {
+        SceneManager.goBack(event);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logo.setImage(image);

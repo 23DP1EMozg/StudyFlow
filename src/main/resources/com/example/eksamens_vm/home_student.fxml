@@ -14,7 +14,8 @@
    <children>
       <Pane prefHeight="99.0" prefWidth="1045.0" style="-fx-background-color: #ADB2D4;">
          <children>
-            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="947.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
          </children>
       </Pane>
       <Text fx:id="welcome" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome User!" textAlignment="CENTER" wrappingWidth="1024.0">
