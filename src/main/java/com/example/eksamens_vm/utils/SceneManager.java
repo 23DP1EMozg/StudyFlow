@@ -33,11 +33,10 @@ public class SceneManager {
             stage.setResizable(false);
             stage.show();
 
-            if(!history.getLast().getFxmlFile().equals(fxmlFile)) {
+            if(history.isEmpty() || !history.getLast().getFxmlFile().equals(fxmlFile)) {
                 history.add(new SceneHistory(fxmlFile, title));
             }
 
-            history.forEach(h -> System.out.println(h.getTitle()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,5 +54,9 @@ public class SceneManager {
 
     public static void addToHistory(SceneHistory sceneHistory) {
         history.add(sceneHistory);
+    }
+
+    public static void clearHistory(){
+        history.clear();
     }
 }

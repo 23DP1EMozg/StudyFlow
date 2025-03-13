@@ -103,4 +103,9 @@ public class HomeController implements Initializable {
     private void goBack(ActionEvent event){
         SceneManager.goBack(event);
     }
+
+    @FXML
+    private void logout(ActionEvent event) {
+        userService.logout(event);
+    }
 }

@@ -1,10 +1,13 @@
 package com.example.eksamens_vm.services;
 
+import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
+import com.example.eksamens_vm.utils.SceneManager;
+import javafx.event.ActionEvent;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import java.util.List;
 public class UserService {
 
     private JsonService jsonService = new JsonService();
+    private Session session = Session.getInstance();
 
 
     public int generateNewId(){
@@ -75,5 +79,12 @@ public class UserService {
             }
         }
         throw new NotFoundException("User not found!");
+    }
+
+    public void logout(ActionEvent event) {
+        session.setLoggedInUser(null);
+        session.setJoinedRoom(null);
+        SceneManager.switchScenes(event, "login.fxml", "login");
+        SceneManager.clearHistory();
     }
 }

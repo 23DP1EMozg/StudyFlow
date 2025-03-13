@@ -43,5 +43,6 @@
       </Label>
       <TextField fx:id="requestCodeInput" layoutX="382.0" layoutY="575.0" prefHeight="25.0" prefWidth="265.0" />
       <Button fx:id="requestButton" layoutX="426.0" layoutY="622.0" mnemonicParsing="false" onAction="#requestRoom" prefHeight="25.0" prefWidth="171.0" text="Request" />
+      <Button layoutX="951.0" layoutY="720.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
    </children>
 </AnchorPane>

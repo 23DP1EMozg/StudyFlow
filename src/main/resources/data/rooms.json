@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "rodeon rungeon",
+    "name": "rodeon",
     "students": [
       2
     ],
     "owner": 1,
     "joinRequests": [],
-    "joinCode": 55547766
+    "joinCode": 14226107
   }
 ]
