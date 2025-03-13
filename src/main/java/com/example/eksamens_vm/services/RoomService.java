@@ -41,7 +41,7 @@ public class RoomService {
 
         jsonService.save(room, "rooms.json", Room.class);
         try {
-            userService.addRoom(session.getLoggedInUser(), room);
+            addUserRoom(session.getLoggedInUser(), room);
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -166,11 +166,35 @@ public class RoomService {
 
     }
 
+    public void addUserRoom(User user, Room room) throws NotFoundException {
+        List<Integer> rooms = user.getRooms();
+        List<User> users = jsonService.getAll("users.json", User.class);
+
+
+
+        if (!rooms.contains(room)) {
+            rooms.add(room.getId());
+        }
+        user.setRooms(rooms);
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId() == user.getId()) {
+                users.set(i, user);
+                jsonService.saveMany(users, "users.json");
+                return;
+            }
+        }
+
+
+        throw new NotFoundException("User not found!");
+    }
+
+
     public void acceptUserRequest(int userId, int roomId) throws RoomNotFoundException, NotFoundException, UserNotFoundException {
         Room room = getRoomById(roomId);
         User user = userService.getUserById(userId);
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
-        userService.addRoom(user, room);
+        addUserRoom(user, room);
         List<Integer> roomUsers = room.getStudents();
         roomUsers.add(user.getId());
         room.setStudents(roomUsers);
@@ -194,6 +218,43 @@ public class RoomService {
     public void rejectUserRequest(int userId, int roomId) throws RoomNotFoundException, NotFoundException, UserNotFoundException {
         User user = userService.getUserById(userId);
         removeUserFromRequest(user.getId(), roomId);
+    }
+
+    public List<String> getAllUserRoomNames(User user) throws RoomNotFoundException {
+        List<String> names = new ArrayList<>();
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+
+
+        for(int i = 0; i<user.getRooms().size(); i++){
+            if(user.getRooms().get(i) == rooms.get(i).getId()){
+                names.add(rooms.get(i).getName());
+            }
+        }
+        return names;
+    }
+
+    public List<User> getAllUsersInRoom(int roomId) throws RoomNotFoundException, UserNotFoundException {
+        List<User> users = new ArrayList<>();
+        Room room = getRoomById(roomId);
+
+        for(int i = 0; i<room.getStudents().size(); i++){
+            User user = userService.getUserById(room.getStudents().get(i));
+            users.add(user);
+        }
+
+        return users;
+    }
+
+    public List<String> getAllUsersInRoomNames(int roomId) throws RoomNotFoundException, UserNotFoundException {
+        List<String> users = new ArrayList<>();
+        Room room = getRoomById(roomId);
+
+        for(int i = 0; i<room.getStudents().size(); i++){
+            String user = userService.getUserById(room.getStudents().get(i)).getUsername();
+            users.add(user);
+        }
+
+        return users;
     }
 
 }

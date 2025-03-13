@@ -18,6 +18,7 @@
                </font>
             </Text>
             <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="49.0" text="Back" />
+            <Button layoutX="105.0" layoutY="38.0" mnemonicParsing="false" text="All Students" />
          </children>
       </Pane>
    </children>

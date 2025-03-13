@@ -45,41 +45,6 @@ public class UserService {
 
     }
 
-    public List<String> getAllRoomNames(User user) throws RoomNotFoundException {
-        List<String> names = new ArrayList<>();
-        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
-
-
-        for(int i = 0; i<user.getRooms().size(); i++){
-            if(user.getRooms().get(i) == rooms.get(i).getId()){
-                names.add(rooms.get(i).getName());
-            }
-        }
-        return names;
-    }
-
-
-
-    public void addRoom(User user, Room room) throws NotFoundException {
-        List<Integer> rooms = user.getRooms();
-        List<User> users = jsonService.getAll("users.json", User.class);
-
-
-
-        if (!rooms.contains(room)) {
-            rooms.add(room.getId());
-        }
-        user.setRooms(rooms);
-
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId() == user.getId()) {
-                users.set(i, user);
-                jsonService.saveMany(users, "users.json");
-                return;
-            }
-        }
-        throw new NotFoundException("User not found!");
-    }
 
     public void logout(ActionEvent event) {
         session.setLoggedInUser(null);

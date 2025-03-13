@@ -50,7 +50,7 @@ public class HomeController implements Initializable {
         welcome.setText("Welcome " + session.getLoggedInUser().getUsername() + "!");
         logo.setImage(image);
         try {
-            choiceBox.getItems().addAll(userService.getAllRoomNames(session.getLoggedInUser()));
+            choiceBox.getItems().addAll(roomService.getAllUserRoomNames(session.getLoggedInUser()));
         } catch (RoomNotFoundException e) {
             throw new RuntimeException(e);
         }
