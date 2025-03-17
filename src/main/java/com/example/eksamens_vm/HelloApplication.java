@@ -16,14 +16,7 @@ import java.util.Objects;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
-        Scene scene = new Scene(root, 1024, 768);
-        stage.setTitle("login");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        SceneManager.addToHistory(new SceneHistory("login.fxml", "login"));
-
+        SceneManager.switchScenes(stage, "login.fxml", "Login");
     }
 
     public static void main(String[] args) {

@@ -33,6 +33,7 @@ public class SceneManager {
             stage.setResizable(false);
             stage.show();
 
+
             if(history.isEmpty() || !history.getLast().getFxmlFile().equals(fxmlFile)) {
                 history.add(new SceneHistory(fxmlFile, title));
             }
@@ -41,6 +42,54 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
+
+    public static void switchScenes(Stage stage, String fxmlFile, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 1024, 768);
+
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.setResizable(false);
+            stage.show();
+
+
+            if(history.isEmpty() || !history.getLast().getFxmlFile().equals(fxmlFile)) {
+                history.add(new SceneHistory(fxmlFile, title));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> T switchScenesWithController(ActionEvent event, String fxmlFile, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 1024, 768);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.setResizable(false);
+            stage.show();
+
+
+            if(history.isEmpty() || !history.getLast().getFxmlFile().equals(fxmlFile)) {
+                history.add(new SceneHistory(fxmlFile, title));
+            }
+
+            return loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     public static void goBack(ActionEvent event) {
         if (history.size() >= 2) {

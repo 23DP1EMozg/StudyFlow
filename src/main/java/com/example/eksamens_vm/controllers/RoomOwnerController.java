@@ -75,6 +75,7 @@ public class RoomOwnerController implements Initializable {
                 requestList.getItems().addAll(
                         roomService.getAllRequestsNames(session.getJoinedRoom().getId())
                 );
+                selectedUserRequest = null;
             } catch (RoomNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (NotFoundException e) {
@@ -95,6 +96,7 @@ public class RoomOwnerController implements Initializable {
                 requestList.getItems().addAll(
                         roomService.getAllRequestsNames(session.getJoinedRoom().getId())
                 );
+                selectedUserRequest = null;
                 System.out.println(roomService.getAllRequestsNames(session.getJoinedRoom().getId()));
             } catch (RoomNotFoundException e) {
                 throw new RuntimeException(e);
@@ -109,5 +111,10 @@ public class RoomOwnerController implements Initializable {
     @FXML
     private void goBack(ActionEvent event) {
         SceneManager.goBack(event);
+    }
+
+    @FXML
+    private void toAllStudents(ActionEvent event) {
+        SceneManager.switchScenes(event, "all_students_owner.fxml", "All Students");
     }
 }

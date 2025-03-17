@@ -31,6 +31,12 @@ public class UserService {
         return users.stream().anyMatch(user -> user.getUsername().equals(username));
     }
 
+    public boolean userExists(int userId) {
+        List<User> users = jsonService.getAll("users.json", User.class);
+        System.out.println(users);
+        return users.stream().anyMatch(user -> user.getId() == userId);
+    }
+
     public User getUserById(int id) throws UserNotFoundException {
         List<User> users = jsonService.getAll("users.json", User.class);
         return users.stream().filter(user -> user.getId() == id).findFirst()

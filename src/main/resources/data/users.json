@@ -9,15 +9,6 @@
     ]
   },
   {
-    "username": "sigma",
-    "password": "1",
-    "userType": "STUDENT",
-    "id": 2,
-    "rooms": [
-      1
-    ]
-  },
-  {
     "username": "reinis",
     "password": "1",
     "userType": "STUDENT",
