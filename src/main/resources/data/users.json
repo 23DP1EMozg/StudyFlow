@@ -1,18 +1,18 @@
 [
   {
-    "username": "nigga",
+    "username": "sigma",
     "password": "1",
-    "userType": "TEACHER",
-    "id": 1,
+    "userType": "STUDENT",
+    "id": 2,
+    "rooms": []
+  },
+  {
+    "username": "sigma",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 2,
     "rooms": [
       1
     ]
-  },
-  {
-    "username": "reinis",
-    "password": "1",
-    "userType": "STUDENT",
-    "id": 3,
-    "rooms": []
   }
 ]

@@ -256,15 +256,41 @@ public class RoomService {
         return users;
     }
 
-    public void removeUser(int userId) throws UserNotFoundException {
-        List<User> users = jsonService.getAll("users.json", User.class);
+    public void removeUser(int userId, int roomId) throws UserNotFoundException, RoomNotFoundException {
+
+        //remove users from rooms
+        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
         if(!userService.userExists(userId)){
             throw new UserNotFoundException("User doesnt exist");
         }
 
-        users.removeIf(user -> user.getId() == userId);
-        jsonService.saveMany(users, "users.json");
+        Room room = getRoomById(roomId);
+        List<Integer> roomUsers = room.getStudents();
+        roomUsers.removeIf(r -> r == userId);
+        room.setStudents(roomUsers);
 
+        List<User> users = jsonService.getAll("users.json", User.class);
+        User user = userService.getUserById(userId);
+        List<Integer> userRooms = user.getRooms();
+        userRooms.removeIf(r -> r == roomId);
+        user.setRooms(userRooms);
+
+        //remove user from room
+        for(int i = 0; i<rooms.size(); i++){
+            if(rooms.get(i).getId() == roomId){
+                rooms.set(i, room);
+                jsonService.saveMany(rooms, "rooms.json");
+
+                //remove room from user
+                for(int j = 0; j<users.size(); j++){
+                    if(users.get(j).getId() == roomId){
+                        users.set(j, user);
+                        jsonService.saveMany(users, "users.json");
+                        return;
+                    }
+                }
+            }
+        }
 
     }
 

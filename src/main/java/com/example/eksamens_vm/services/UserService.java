@@ -48,7 +48,6 @@ public class UserService {
         return users.stream().filter(usr -> usr.getUsername().equals(username))
                 .findFirst()
                 .orElse(null);
-
     }
 
 

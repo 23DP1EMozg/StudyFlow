@@ -59,11 +59,11 @@ public class AllStudentsOwner implements Initializable {
         }else{
             int userId = userService.getUserByUsername(selectedUser).getId();
             try {
-                roomService.removeUser(userId);
+                roomService.removeUser(userId, session.getJoinedRoom().getId());
                 studentList.getItems().remove(selectedUser);
                 selectedUser = null;
                 error.setText("");
-            } catch (UserNotFoundException e) {
+            } catch (UserNotFoundException | RoomNotFoundException e) {
                 error.setText(e.getMessage());
             }
         }

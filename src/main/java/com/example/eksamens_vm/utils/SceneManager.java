@@ -101,9 +101,6 @@ public class SceneManager {
         }
     }
 
-    public static void addToHistory(SceneHistory sceneHistory) {
-        history.add(sceneHistory);
-    }
 
     public static void clearHistory(){
         history.clear();
