@@ -258,7 +258,6 @@ public class RoomService {
 
     public void removeUser(int userId, int roomId) throws UserNotFoundException, RoomNotFoundException {
 
-        //remove users from rooms
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
         if(!userService.userExists(userId)){
             throw new UserNotFoundException("User doesnt exist");
@@ -283,7 +282,7 @@ public class RoomService {
 
                 //remove room from user
                 for(int j = 0; j<users.size(); j++){
-                    if(users.get(j).getId() == roomId){
+                    if(users.get(j).getId() == userId){
                         users.set(j, user);
                         jsonService.saveMany(users, "users.json");
                         return;
