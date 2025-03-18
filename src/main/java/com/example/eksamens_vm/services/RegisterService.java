@@ -31,7 +31,7 @@ public class RegisterService {
 
         jsonService.save(savedUser, "users.json", User.class);
         session.setLoggedInUser(user);
-        System.out.println("saved user: " + user.getUsername());
+        System.out.println("saved user: " + user.getUserType());
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
+import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.UserService;
 import com.example.eksamens_vm.utils.SceneManager;
@@ -48,8 +49,16 @@ public class AllStudentsOwner implements Initializable {
 
     @FXML
     private void toEditUser(ActionEvent event) {
-        EditUserController editUserController = SceneManager.switchScenesWithController(event, "edit_user.fxml", "Edit User");
-        editUserController.hello(session.getLoggedInUser());
+
+        if(selectedUser == null){
+            error.setText("User not selected!");
+        }else{
+            EditUserController editUserController = SceneManager.switchScenesWithController(event, "edit_user.fxml", "Edit User");
+            User user = userService.getUserByUsername(selectedUser);
+            assert editUserController != null;
+            editUserController.initializeUser(user);
+        }
+
     }
 
     @FXML

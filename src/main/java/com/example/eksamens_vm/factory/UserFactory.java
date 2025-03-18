@@ -19,7 +19,7 @@ public class UserFactory {
                     user.getUsername(),
                     user.getPassword(),
                     user.getUserType(),
-                    "DP2-1",
+                    null,
                     List.of()
             );
             case TEACHER -> new Teacher(

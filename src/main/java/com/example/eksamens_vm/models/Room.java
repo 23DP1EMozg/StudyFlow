@@ -5,12 +5,12 @@ import java.util.List;
 public class Room {
     private int id;
     private String name;
-    private List<Integer> students;
+    private List<RoomUser> students;
     private int owner;
     private List<Integer> joinRequests;
     private int joinCode;
 
-    public Room(List<Integer> students, int id, String name, int owner, List<Integer> joinRequests, int joinCode) {
+    public Room(List<RoomUser> students, int id, String name, int owner, List<Integer> joinRequests, int joinCode) {
         this.students = students;
         this.id = id;
         this.name = name;
@@ -29,11 +29,11 @@ public class Room {
         this.id = id;
     }
 
-    public List<Integer> getStudents() {
+    public List<RoomUser> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Integer> students) {
+    public void setStudents(List<RoomUser> students) {
         this.students = students;
     }
 

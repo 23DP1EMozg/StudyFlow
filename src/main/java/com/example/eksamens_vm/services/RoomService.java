@@ -6,6 +6,7 @@ import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
+import com.example.eksamens_vm.models.RoomUser;
 import com.example.eksamens_vm.models.Student;
 import com.example.eksamens_vm.models.User;
 
@@ -195,8 +196,10 @@ public class RoomService {
         User user = userService.getUserById(userId);
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
         addUserRoom(user, room);
-        List<Integer> roomUsers = room.getStudents();
-        roomUsers.add(user.getId());
+        List<RoomUser> roomUsers = room.getStudents();
+        roomUsers.add(
+                new RoomUser(user.getId(), null)
+        );
         room.setStudents(roomUsers);
 
         List<Integer> roomRequests = room.getJoinRequests();
@@ -237,7 +240,7 @@ public class RoomService {
         Room room = getRoomById(roomId);
 
         for(int i = 0; i<room.getStudents().size(); i++){
-            User user = userService.getUserById(room.getStudents().get(i));
+            User user = userService.getUserById(room.getStudents().get(i).getUser());
             users.add(user);
         }
 
@@ -249,7 +252,7 @@ public class RoomService {
         Room room = getRoomById(roomId);
 
         for(int i = 0; i<room.getStudents().size(); i++){
-            String user = userService.getUserById(room.getStudents().get(i)).getUsername();
+            String user = userService.getUserById(room.getStudents().get(i).getUser()).getUsername();
             users.add(user);
         }
 
@@ -264,8 +267,8 @@ public class RoomService {
         }
 
         Room room = getRoomById(roomId);
-        List<Integer> roomUsers = room.getStudents();
-        roomUsers.removeIf(r -> r == userId);
+        List<RoomUser> roomUsers = room.getStudents();
+        roomUsers.removeIf(r -> r.getUser() == userId);
         room.setStudents(roomUsers);
 
         List<User> users = jsonService.getAll("users.json", User.class);
