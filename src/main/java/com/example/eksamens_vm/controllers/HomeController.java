@@ -2,7 +2,9 @@ package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.enums.UserRole;
+import com.example.eksamens_vm.exceptions.RoomAlreadyRequestedException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
+import com.example.eksamens_vm.exceptions.UserAlreadyInRoomException;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.RoomService;
@@ -94,7 +96,8 @@ public class HomeController implements Initializable {
             error.setFill(Color.GREENYELLOW);
             error.setText("Requested to join room- " + room.getName());
 
-        }catch (RoomNotFoundException e){
+        }catch (RoomNotFoundException | RoomAlreadyRequestedException | UserAlreadyInRoomException e){
+            error.setFill(Color.RED);
             error.setText(e.getMessage());
         }
     }

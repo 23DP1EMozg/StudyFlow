@@ -1,10 +1,7 @@
 package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.data.Session;
-import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
-import com.example.eksamens_vm.exceptions.NotFoundException;
-import com.example.eksamens_vm.exceptions.RoomNotFoundException;
-import com.example.eksamens_vm.exceptions.UserNotFoundException;
+import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.RoomUser;
 import com.example.eksamens_vm.models.Student;
@@ -114,9 +111,20 @@ public class RoomService {
                 .orElseThrow(() -> new RoomNotFoundException("room not found!"));
     }
 
-    public Room requestRoom(int joinCode, User user) throws RoomNotFoundException {
+    public Room requestRoom(int joinCode, User user) throws RoomNotFoundException, RoomAlreadyRequestedException, UserAlreadyInRoomException {
         Room room = getRoomByJoinCode(joinCode);
         List<Integer> roomRequests = room.getJoinRequests();
+
+        if(roomRequests.contains(user.getId())){
+            throw new RoomAlreadyRequestedException("you have already requested to join this room!");
+        }
+
+        for(int i = 0; i<room.getStudents().size(); i++){
+            if(room.getStudents().get(i).getUser() == user.getId()){
+                throw new UserAlreadyInRoomException("you have already joined this room!");
+            }
+        }
+
         List<Room> allRooms = jsonService.getAll("rooms.json", Room.class);
         roomRequests.add(user.getId());
         room.setJoinRequests(roomRequests);
@@ -259,7 +267,7 @@ public class RoomService {
         return users;
     }
 
-    public void removeUser(int userId, int roomId) throws UserNotFoundException, RoomNotFoundException {
+    public void removeUser(int userId, int roomId) throws UserNotFoundException, RoomNotFoundException, NotFoundException {
 
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
         if(!userService.userExists(userId)){

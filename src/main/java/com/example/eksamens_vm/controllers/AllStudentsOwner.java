@@ -1,6 +1,7 @@
 package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
+import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Room;
@@ -74,6 +75,8 @@ public class AllStudentsOwner implements Initializable {
                 error.setText("");
             } catch (UserNotFoundException | RoomNotFoundException e) {
                 error.setText(e.getMessage());
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
     }

@@ -13,6 +13,8 @@
     "password": "1",
     "userType": "STUDENT",
     "id": 2,
-    "rooms": []
+    "rooms": [
+      1
+    ]
   }
 ]

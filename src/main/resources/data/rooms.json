@@ -2,7 +2,11 @@
   {
     "id": 1,
     "name": "rodeon",
-    "students": [],
+    "students": [
+      {
+        "user": 2
+      }
+    ],
     "owner": 1,
     "joinRequests": [],
     "joinCode": 89187735
