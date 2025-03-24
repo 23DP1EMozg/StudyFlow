@@ -5,7 +5,8 @@
     "userType": "TEACHER",
     "id": 1,
     "rooms": [
-      1
+      1,
+      2
     ]
   },
   {
