@@ -5,13 +5,13 @@ import java.util.List;
 public class Room {
     private int id;
     private String name;
-    private List<RoomUser> students;
+    private List<RoomUser> users;
     private int owner;
     private List<Integer> joinRequests;
     private int joinCode;
 
-    public Room(List<RoomUser> students, int id, String name, int owner, List<Integer> joinRequests, int joinCode) {
-        this.students = students;
+    public Room(List<RoomUser> users, int id, String name, int owner, List<Integer> joinRequests, int joinCode) {
+        this.users = users;
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -29,12 +29,12 @@ public class Room {
         this.id = id;
     }
 
-    public List<RoomUser> getStudents() {
-        return students;
+    public List<RoomUser> getUsers() {
+        return users;
     }
 
-    public void setStudents(List<RoomUser> students) {
-        this.students = students;
+    public void setUsers(List<RoomUser> students) {
+        this.users = students;
     }
 
     public String getName() {

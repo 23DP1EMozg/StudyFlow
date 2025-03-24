@@ -115,6 +115,12 @@ public class RoomOwnerController implements Initializable {
 
     @FXML
     private void toAllStudents(ActionEvent event) {
-        SceneManager.switchScenes(event, "all_students_owner.fxml", "All Students");
+
+        SceneManager.switchScenes(event, "all_users", "All Users");
+    }
+
+    @FXML
+    private void toGroups(ActionEvent event) {
+        SceneManager.switchScenes(event, "groups", "Groups");
     }
 }

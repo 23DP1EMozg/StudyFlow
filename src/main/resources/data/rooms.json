@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "name": "rodeon",
-    "students": [
+    "name": "rodeon_dungeon",
+    "users": [
       {
         "user": 2
       }
     ],
     "owner": 1,
     "joinRequests": [],
-    "joinCode": 89187735
+    "joinCode": 22597928
   }
 ]

@@ -119,8 +119,8 @@ public class RoomService {
             throw new RoomAlreadyRequestedException("you have already requested to join this room!");
         }
 
-        for(int i = 0; i<room.getStudents().size(); i++){
-            if(room.getStudents().get(i).getUser() == user.getId()){
+        for(int i = 0; i<room.getUsers().size(); i++){
+            if(room.getUsers().get(i).getUser() == user.getId()){
                 throw new UserAlreadyInRoomException("you have already joined this room!");
             }
         }
@@ -204,11 +204,11 @@ public class RoomService {
         User user = userService.getUserById(userId);
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
         addUserRoom(user, room);
-        List<RoomUser> roomUsers = room.getStudents();
+        List<RoomUser> roomUsers = room.getUsers();
         roomUsers.add(
                 new RoomUser(user.getId(), null)
         );
-        room.setStudents(roomUsers);
+        room.setUsers(roomUsers);
 
         List<Integer> roomRequests = room.getJoinRequests();
         roomRequests.removeIf(r -> r == userId);
@@ -247,8 +247,8 @@ public class RoomService {
         List<User> users = new ArrayList<>();
         Room room = getRoomById(roomId);
 
-        for(int i = 0; i<room.getStudents().size(); i++){
-            User user = userService.getUserById(room.getStudents().get(i).getUser());
+        for(int i = 0; i<room.getUsers().size(); i++){
+            User user = userService.getUserById(room.getUsers().get(i).getUser());
             users.add(user);
         }
 
@@ -259,8 +259,8 @@ public class RoomService {
         List<String> users = new ArrayList<>();
         Room room = getRoomById(roomId);
 
-        for(int i = 0; i<room.getStudents().size(); i++){
-            String user = userService.getUserById(room.getStudents().get(i).getUser()).getUsername();
+        for(int i = 0; i<room.getUsers().size(); i++){
+            String user = userService.getUserById(room.getUsers().get(i).getUser()).getUsername();
             users.add(user);
         }
 
@@ -275,9 +275,9 @@ public class RoomService {
         }
 
         Room room = getRoomById(roomId);
-        List<RoomUser> roomUsers = room.getStudents();
+        List<RoomUser> roomUsers = room.getUsers();
         roomUsers.removeIf(r -> r.getUser() == userId);
-        room.setStudents(roomUsers);
+        room.setUsers(roomUsers);
 
         List<User> users = jsonService.getAll("users.json", User.class);
         User user = userService.getUserById(userId);

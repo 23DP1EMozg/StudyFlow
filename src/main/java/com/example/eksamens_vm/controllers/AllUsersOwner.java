@@ -4,7 +4,6 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.UserService;
@@ -15,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -26,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllStudentsOwner implements Initializable {
+public class AllUsersOwner implements Initializable {
     @FXML
     private ImageView logo;
     @FXML
@@ -82,6 +80,10 @@ public class AllStudentsOwner implements Initializable {
     }
 
 
+    @FXML
+    private void toGroups(ActionEvent event) {
+        SceneManager.switchScenes(event, "groups", "Groups");
+    }
 
 
     @Override

@@ -7,7 +7,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.EditUserController">
    <children>
       <Pane layoutY="-1.0" prefHeight="99.0" prefWidth="1029.0" style="-fx-background-color: #ADB2D4;">
@@ -19,7 +18,8 @@
                </font>
             </Text>
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-            <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Students" />
+            <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Users" />
+            <Button layoutX="223.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllStudents" text="Groups" />
          </children>
       </Pane>
       <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="931.0" pickOnBounds="true" preserveRatio="true" />

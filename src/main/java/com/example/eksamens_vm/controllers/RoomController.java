@@ -35,4 +35,14 @@ public class RoomController implements Initializable {
         logo.setImage(image);
         text.setText(session.getJoinedRoom().getName());
     }
+
+    @FXML
+    private void toGroups(ActionEvent event) {
+        SceneManager.switchScenes(event, "groups", "Groups");
+    }
+
+    @FXML
+    private void toAllStudents(ActionEvent event) {
+        SceneManager.switchScenes(event, "all_users", "All Users");
+    }
 }

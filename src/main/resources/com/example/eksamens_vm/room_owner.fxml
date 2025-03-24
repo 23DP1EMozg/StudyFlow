@@ -20,7 +20,8 @@
                </font>
             </Text>
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-            <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllStudents" text="All Students" />
+            <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllStudents" text="All Users" />
+            <Button layoutX="224.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
          </children>
       </Pane>
       <Label fx:id="joinCode" layoutX="727.0" layoutY="119.0" prefHeight="35.0" prefWidth="249.0" text="Join Code- 00000000">

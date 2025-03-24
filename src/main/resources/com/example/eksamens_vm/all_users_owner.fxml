@@ -8,25 +8,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.AllStudentsOwner">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #EEF1DA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.eksamens_vm.controllers.AllUsersOwner">
    <children>
       <Pane prefHeight="99.0" prefWidth="1024.0" style="-fx-background-color: #ADB2D4;">
          <children>
             <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="926.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="text" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Students" textAlignment="CENTER" wrappingWidth="1024.0">
+            <Text fx:id="text" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Users" textAlignment="CENTER" wrappingWidth="1024.0">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-            <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Students" />
+            <Button layoutX="231.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
          </children>
       </Pane>
       <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-      <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Students" />
-      <ListView fx:id="studentList" layoutX="34.0" layoutY="150.0" prefHeight="520.0" prefWidth="450.0" />
-      <Button layoutX="34.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeStudent" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: red;" text="Remove Student" />
-      <Button layoutX="357.0" layoutY="687.0" mnemonicParsing="false" onAction="#toEditUser" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #ADB2D4;" text="Edit Student" />
+      <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Users" />
+      <ListView fx:id="studentList" layoutX="287.0" layoutY="141.0" prefHeight="520.0" prefWidth="450.0" />
+      <Button layoutX="287.0" layoutY="687.0" mnemonicParsing="false" onAction="#removeStudent" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: red;" text="Remove Student" />
+      <Button layoutX="619.0" layoutY="687.0" mnemonicParsing="false" onAction="#toEditUser" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #ADB2D4;" text="Edit Student" />
       <Text fx:id="error" fill="RED" layoutX="34.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="449.9999999999999">
          <font>
             <Font size="24.0" />

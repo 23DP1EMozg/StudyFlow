@@ -1,6 +1,8 @@
 package com.example.eksamens_vm.utils;
 
+import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.models.SceneHistory;
+import com.example.eksamens_vm.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +18,7 @@ import java.util.List;
 public class SceneManager {
 
     private static List<SceneHistory> history = new ArrayList<>();
+    private static Session session = Session.getInstance();
 
     public SceneManager() {
         history.add(new SceneHistory("login.fxml", "login"));
@@ -23,7 +26,9 @@ public class SceneManager {
 
     public static void switchScenes(ActionEvent event, String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
+            String permittedFxmlFile = getPermittedScene(fxmlFile);
+
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + permittedFxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root, 1024, 768);
 
@@ -45,7 +50,9 @@ public class SceneManager {
 
     public static void switchScenes(Stage stage, String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
+            String permittedFxmlFile = getPermittedScene(fxmlFile);
+
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + permittedFxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root, 1024, 768);
 
@@ -66,7 +73,10 @@ public class SceneManager {
 
     public static <T> T switchScenesWithController(ActionEvent event, String fxmlFile, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + fxmlFile));
+
+            String permittedFxmlFile = getPermittedScene(fxmlFile);
+
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/com/example/eksamens_vm/" + permittedFxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root, 1024, 768);
 
@@ -104,5 +114,60 @@ public class SceneManager {
 
     public static void clearHistory(){
         history.clear();
+    }
+
+    private static String getPermittedScene(String fxmlFile){
+        User user = session.getLoggedInUser();
+        if(user == null){
+            return fxmlFile;
+        }
+       //ALL USERS PAGE
+         if(fxmlFile.equals("all_users")){
+
+            if(session.getLoggedInUser().getId() == session.getJoinedRoom().getOwner()){
+                return "all_users_owner.fxml";
+            }
+
+            switch(user.getUserType()){
+                case STUDENT -> {
+                    return "all_users_student.fxml";
+                }
+
+                case TEACHER -> {
+                    return "all_users_teacher.fxml";
+                }
+            }
+        }
+
+
+         //HOME PAGE
+        if(fxmlFile.equals("home")){
+
+            switch(user.getUserType()){
+                case STUDENT -> {
+                    return "home_student.fxml";
+                }
+                case TEACHER -> {
+                    return "home_teacher.fxml";
+                }
+            }
+        }
+
+        //GROUPS
+        if(fxmlFile.equals("groups")){
+
+            if(session.getLoggedInUser().getId() == session.getJoinedRoom().getOwner()){
+                return "groups_owner.fxml";
+            }
+
+            switch(user.getUserType()){
+                case STUDENT, TEACHER -> {
+                    return "groups.fxml";
+                }
+
+
+            }
+        }
+        return fxmlFile;
     }
 }
