@@ -34,7 +34,7 @@ public class GroupsController implements Initializable {
 
 
     @FXML
-    private void toAllStudents(ActionEvent event) {
+    private void toAllUsers(ActionEvent event) {
         SceneManager.switchScenes(event, "all_users", "All Users");
     }
 
