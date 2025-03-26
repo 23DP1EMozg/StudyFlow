@@ -4,6 +4,7 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
+import com.example.eksamens_vm.models.Group;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.utils.SceneManager;
@@ -48,6 +49,11 @@ public class UserService {
         return users.stream().filter(usr -> usr.getUsername().equals(username))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void addUserToGroup(int userId, int groupId) throws UserNotFoundException {
+        User user = getUserById(userId);
+
     }
 
 

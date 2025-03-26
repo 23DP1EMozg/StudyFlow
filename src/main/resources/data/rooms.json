@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "rodeon_dungeon",
+    "name": "mana istaba",
     "users": [
       {
         "user": 2
@@ -9,14 +9,6 @@
     ],
     "owner": 1,
     "joinRequests": [],
-    "joinCode": 22597928
-  },
-  {
-    "id": 2,
-    "name": "room1",
-    "users": [],
-    "owner": 1,
-    "joinRequests": [],
-    "joinCode": 98324598
+    "joinCode": 87174501
   }
 ]
