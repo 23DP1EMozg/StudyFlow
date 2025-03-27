@@ -29,8 +29,6 @@ public class LoginController implements Initializable {
     ImageView logo;
 
     Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
-    JsonService jsonService = new JsonService();
-    UserService userService = new UserService();
     LoginService loginService = new LoginService();
 
     @FXML

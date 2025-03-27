@@ -20,6 +20,7 @@ public class UserService {
     private Session session = Session.getInstance();
 
 
+
     public int generateNewId(){
          List<User> users = jsonService.getAll("users.json", User.class);
          return users.isEmpty() ? 1 : users.getLast().getId() + 1;
@@ -51,10 +52,7 @@ public class UserService {
                 .orElse(null);
     }
 
-    public void addUserToGroup(int userId, int groupId) throws UserNotFoundException {
-        User user = getUserById(userId);
 
-    }
 
 
     public void logout(ActionEvent event) {

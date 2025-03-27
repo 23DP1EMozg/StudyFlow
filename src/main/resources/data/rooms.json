@@ -1,14 +1,19 @@
 [
   {
     "id": 1,
-    "name": "mana istaba",
+    "name": "rodeon",
     "users": [
       {
-        "user": 2
+        "user": 2,
+        "group": 3
+      },
+      {
+        "user": 3,
+        "group": 4
       }
     ],
     "owner": 1,
     "joinRequests": [],
-    "joinCode": 87174501
+    "joinCode": 60890843
   }
 ]

@@ -206,7 +206,7 @@ public class RoomService {
         addUserRoom(user, room);
         List<RoomUser> roomUsers = room.getUsers();
         roomUsers.add(
-                new RoomUser(user.getId(), null)
+                new RoomUser(user.getId(), 0)
         );
         room.setUsers(roomUsers);
 

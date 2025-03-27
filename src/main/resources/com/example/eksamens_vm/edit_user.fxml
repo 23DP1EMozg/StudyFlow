@@ -21,7 +21,7 @@
             </Text>
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Users" />
-            <Button layoutX="223.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllUsers" text="Groups" />
+            <Button layoutX="223.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
          </children>
       </Pane>
       <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="931.0" pickOnBounds="true" preserveRatio="true" />
@@ -31,7 +31,8 @@
          </font>
       </Text>
       <Label layoutX="134.0" layoutY="263.0" prefHeight="17.0" prefWidth="99.0" text="Change group" />
-      <Button layoutX="125.0" layoutY="353.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Save" />
+      <Button layoutX="125.0" layoutY="353.0" mnemonicParsing="false" onAction="#saveGroup" prefHeight="25.0" prefWidth="99.0" text="Save" />
       <ChoiceBox fx:id="menu" layoutX="100.0" layoutY="293.0" prefWidth="150.0" />
+      <Text fx:id="error" fill="RED" layoutX="99.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="150.00000000000006" />
    </children>
 </AnchorPane>
