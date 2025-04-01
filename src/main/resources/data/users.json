@@ -25,5 +25,14 @@
     "rooms": [
       1
     ]
+  },
+  {
+    "username": "teacher2",
+    "password": "1",
+    "userType": "TEACHER",
+    "id": 4,
+    "rooms": [
+      1
+    ]
   }
 ]

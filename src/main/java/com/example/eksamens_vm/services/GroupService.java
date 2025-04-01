@@ -18,6 +18,7 @@ public class GroupService {
 
     JsonService jsonService = new JsonService();
     RoomService roomService = new RoomService();
+    UserService userService = new UserService();
 
     private int generateGroupId(){
         List<Room> rooms = jsonService.getAll("groups.json", Room.class);
@@ -96,11 +97,9 @@ public class GroupService {
                 .ifPresent(r -> r.setUsers(roomUsers));
         jsonService.saveMany(rooms, "rooms.json");
 
-
-
-
-
     }
+
+
 
 
 }

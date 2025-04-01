@@ -10,15 +10,18 @@ import com.example.eksamens_vm.models.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class RoomService {
     Session session;
     JsonService jsonService;
     UserService userService;
+
     public RoomService() {
         this.session = Session.getInstance();
         this.jsonService = new JsonService();
         this.userService = new UserService();
+
     }
 
 
@@ -302,6 +305,20 @@ public class RoomService {
             }
         }
 
+
     }
+
+//    public List<String> getAllTeacherNamesInRoom(int roomId){
+//        List<User> users = groupService.ge
+//
+//    }
+
+//        public List<String> getAllStudentNamesInRoom(int roomId){
+//
+//        }
+//
+//        public List<String> getAllGroupStudentsInRoom(int roomId, int groupId){
+//
+//        }
 
 }
