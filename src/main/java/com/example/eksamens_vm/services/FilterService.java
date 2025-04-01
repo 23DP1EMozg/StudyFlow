@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterService {
-    JsonService jsonService = new JsonService();
     UserService userService = new UserService();
     RoomService roomService = new RoomService();
     GroupService groupService = new GroupService();

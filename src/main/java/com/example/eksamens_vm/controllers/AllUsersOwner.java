@@ -35,6 +35,7 @@ public class AllUsersOwner implements Initializable {
     @FXML
     private ChoiceBox<String> filterBox;
 
+
     private List<String> filters = new ArrayList<>();
 
     private RoomService roomService = new RoomService();
@@ -46,7 +47,6 @@ public class AllUsersOwner implements Initializable {
 
 
     Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
-    List<String> userNames = new Stack<>();
 
     @FXML
     private void goBack(ActionEvent event) {
@@ -97,8 +97,7 @@ public class AllUsersOwner implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logo.setImage(image);
         try {
-            userNames = roomService.getAllUsersInRoomNames(session.getJoinedRoom().getId());
-            studentList.getItems().addAll(userNames);
+            studentList.getItems().addAll(roomService.getAllUsersInRoomNames(session.getJoinedRoom().getId()));
         } catch (RoomNotFoundException e) {
             throw new RuntimeException(e);
         } catch (UserNotFoundException e) {
