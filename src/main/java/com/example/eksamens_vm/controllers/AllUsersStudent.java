@@ -5,17 +5,23 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
+import com.example.eksamens_vm.models.User;
+import com.example.eksamens_vm.models.UserTable;
 import com.example.eksamens_vm.services.FilterService;
 import com.example.eksamens_vm.services.GroupService;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.utils.SceneManager;
+import com.example.eksamens_vm.utils.TypeConvertionManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.List;
@@ -31,12 +37,19 @@ public class AllUsersStudent implements Initializable {
     @FXML
     private ChoiceBox<String> filterBox;
     @FXML
-    private ListView<String> studentList;
+    private TableView<UserTable> table;
+    @FXML
+    private TableColumn<UserTable, String> usernameColumn;
+    @FXML
+    private TableColumn<UserTable, String> groupColumn;
+    @FXML
+    private TableColumn<UserTable, String> roleColumn;
 
     private FilterService filterService = new FilterService();
     private RoomService roomService = new RoomService();
     private Session session = Session.getInstance();
     private GroupService groupService = new GroupService();
+    private TypeConvertionManager typeConvertionManager = new TypeConvertionManager();
 
     @FXML
     private void toGroups(ActionEvent event) {
@@ -46,10 +59,14 @@ public class AllUsersStudent implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            studentList.getItems().addAll(roomService.getAllUsersInRoomNames(session.getJoinedRoom().getId()));
-        } catch (RoomNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (UserNotFoundException e) {
+            List<User> users = roomService.getAllUsersInRoom(session.getJoinedRoom().getId());
+            usernameColumn.setCellValueFactory(cellData -> cellData.getValue().getUsernameProperty());
+            groupColumn.setCellValueFactory(cellData -> cellData.getValue().getGroupProperty());
+            roleColumn.setCellValueFactory(cellData -> cellData.getValue().getRoleProperty());
+
+            ObservableList<UserTable> userTableList = typeConvertionManager.convertToUserTable(users, session.getJoinedRoom().getId());
+            table.setItems(userTableList);        }
+        catch (RoomNotFoundException | UserNotFoundException | GroupNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -68,24 +85,24 @@ public class AllUsersStudent implements Initializable {
                 try {
                     if(filterBox.getValue() == null || filterBox.getValue().equals("All")) {
 
-                        List<String> names = roomService.getAllUsersInRoomNames(session.getJoinedRoom().getId());
-                        studentList.getItems().clear();
-                        studentList.getItems().addAll(names);
+                        List<User> usersInRoom = roomService.getAllUsersInRoom(session.getJoinedRoom().getId());
+                        table.getItems().clear();
+                        table.getItems().addAll(typeConvertionManager.convertToUserTable(usersInRoom, session.getJoinedRoom().getId()));
 
                     }else if(filterBox.getValue().equals("All Teachers")) {
-                        List<String> names = filterService.getAllTeachersInRoomNames(session.getJoinedRoom().getId());
-                        studentList.getItems().clear();
-                        studentList.getItems().addAll(names);
+                        List<User> users = filterService.getAllTeachersInRoom(session.getJoinedRoom().getId());
+                        table.getItems().clear();
+                        table.setItems(typeConvertionManager.convertToUserTable(users, session.getJoinedRoom().getId()));
                         System.out.println("teachers");
                     }else if(filterBox.getValue().equals("All Students")) {
-                        List<String> names = filterService.getAllStudentsInRoomNames(session.getJoinedRoom().getId());
-                        studentList.getItems().clear();
-                        studentList.getItems().addAll(names);
+                        List<User> users = filterService.getAllStudentsInRoom(session.getJoinedRoom().getId());
+                        table.getItems().clear();
+                        table.getItems().addAll(typeConvertionManager.convertToUserTable(users, session.getJoinedRoom().getId()));
                         System.out.println("students");
                     }else{
-                        List<String> names = filterService.getAllUsersInGroupNames(filterBox.getValue(), session.getJoinedRoom().getId());
-                        studentList.getItems().clear();
-                        studentList.getItems().addAll(names);
+                        List<User> users = filterService.getAllUsersInGroup(filterBox.getValue(), session.getJoinedRoom().getId());
+                        table.getItems().clear();
+                        table.getItems().addAll(typeConvertionManager.convertToUserTable(users, session.getJoinedRoom().getId()));
                     }
                 } catch (RoomNotFoundException e) {
                     throw new RuntimeException(e);

@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -25,12 +26,18 @@
             <Button layoutX="221.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
             </children>
         </Pane>
-        <ListView fx:id="studentList" layoutX="275.0" layoutY="124.0" prefHeight="520.0" prefWidth="450.0" />
       <ChoiceBox fx:id="filterBox" layoutX="115.0" layoutY="159.0" prefWidth="150.0" />
       <Label layoutX="115.0" layoutY="124.0" prefHeight="17.0" prefWidth="75.0" text="Filter">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <TableView fx:id="table" layoutX="294.0" layoutY="159.0" prefHeight="480.0" prefWidth="437.0">
+         <columns>
+            <TableColumn fx:id="usernameColumn" prefWidth="149.33331298828125" text="Username" />
+            <TableColumn fx:id="groupColumn" prefWidth="148.00003051757812" text="Group" />
+            <TableColumn fx:id="roleColumn" prefWidth="144.66668701171875" text="Role" />
+         </columns>
+      </TableView>
     </children>
 </AnchorPane>

@@ -308,17 +308,6 @@ public class RoomService {
 
     }
 
-//    public List<String> getAllTeacherNamesInRoom(int roomId){
-//        List<User> users = groupService.ge
-//
-//    }
 
-//        public List<String> getAllStudentNamesInRoom(int roomId){
-//
-//        }
-//
-//        public List<String> getAllGroupStudentsInRoom(int roomId, int groupId){
-//
-//        }
 
 }

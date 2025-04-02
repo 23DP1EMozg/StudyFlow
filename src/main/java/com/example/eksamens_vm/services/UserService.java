@@ -1,13 +1,14 @@
 package com.example.eksamens_vm.services;
 
 import com.example.eksamens_vm.data.Session;
+import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.NotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Group;
-import com.example.eksamens_vm.models.Room;
-import com.example.eksamens_vm.models.User;
+import com.example.eksamens_vm.models.*;
 import com.example.eksamens_vm.utils.SceneManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import java.io.FileNotFoundException;
@@ -18,7 +19,6 @@ public class UserService {
 
     private JsonService jsonService = new JsonService();
     private Session session = Session.getInstance();
-
 
 
     public int generateNewId(){
@@ -61,4 +61,6 @@ public class UserService {
         SceneManager.switchScenes(event, "login.fxml", "login");
         SceneManager.clearHistory();
     }
+
+
 }

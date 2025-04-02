@@ -18,7 +18,7 @@ public class GroupService {
 
     JsonService jsonService = new JsonService();
     RoomService roomService = new RoomService();
-    UserService userService = new UserService();
+
 
     private int generateGroupId(){
         List<Room> rooms = jsonService.getAll("groups.json", Room.class);
@@ -99,6 +99,22 @@ public class GroupService {
 
     }
 
+    public String getUsersGroupinRoom(int userId, int roomId) throws RoomNotFoundException, UserNotFoundException, GroupNotFoundException {
+        Room room = roomService.getRoomById(roomId);
+        List<RoomUser> roomUsers = room.getUsers();
+
+        RoomUser roomUser = roomUsers
+                .stream()
+                .filter(r -> r.getUser() == userId)
+                .findFirst()
+                .orElseThrow(() -> new UserNotFoundException("user not found!"));
+
+        if(roomUser.getGroup() == 0){
+            return "Not in a group";
+        }
+
+        return getGroupById(roomUser.getGroup()).getName();
+    }
 
 
 
