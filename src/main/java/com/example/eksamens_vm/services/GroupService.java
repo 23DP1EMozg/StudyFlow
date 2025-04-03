@@ -82,30 +82,52 @@ public class GroupService {
 
         List<RoomUser> roomUsers = room.getUsers();
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
+        List<Group> groups = jsonService.getAll("groups.json", Group.class);
 
         RoomUser foundUser = roomUsers.stream()
                 .filter(u -> u.getUser() == userId)
                 .findFirst()
-                .orElseThrow(() -> new UserNotFoundException("user not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        if (foundUser.getGroup() != 0) {
+            Group previousGroup = getGroupById(foundUser.getGroup());
+            previousGroup.setUsersCount(previousGroup.getUsersCount() - 1);
+
+            for (int i = 0; i < groups.size(); i++) {
+                if (groups.get(i).getId() == previousGroup.getId()) {
+                    groups.set(i, previousGroup);
+                    System.out.println("b");
+                }
+            }
+        }
+
+        group.setUsersCount(group.getUsersCount() + 1);
+
         foundUser.setGroup(groupId);
 
+        for (int i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getId() == groupId) {
+                groups.set(i, group);
+                System.out.println("a");
+            }
+        }
 
-
-        for(int i = 0; i<roomUsers.size(); i++){
-            if(roomUsers.get(i).getUser() == userId){
+        for (int i = 0; i < roomUsers.size(); i++) {
+            if (roomUsers.get(i).getUser() == userId) {
                 roomUsers.set(i, foundUser);
                 break;
             }
         }
 
+        jsonService.saveMany(groups, "groups.json");
+
         rooms.stream()
                 .filter(r -> r.getId() == group.getRoomId())
                 .findFirst()
                 .ifPresent(r -> r.setUsers(roomUsers));
+
         jsonService.saveMany(rooms, "rooms.json");
-
     }
-
     public String getUsersGroupinRoom(int userId, int roomId) throws RoomNotFoundException, UserNotFoundException, GroupNotFoundException {
         Room room = roomService.getRoomById(roomId);
         List<RoomUser> roomUsers = room.getUsers();

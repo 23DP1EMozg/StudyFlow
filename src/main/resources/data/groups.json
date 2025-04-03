@@ -4,5 +4,11 @@
     "name": "DP1-1",
     "roomId": 1,
     "usersCount": 0
+  },
+  {
+    "id": 2,
+    "name": "DP1-2",
+    "roomId": 1,
+    "usersCount": 2
   }
 ]
