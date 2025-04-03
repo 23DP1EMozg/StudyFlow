@@ -44,7 +44,7 @@ public class GroupService {
             }
         }
 
-        Group group = new Group(name, roomId, generateGroupId());
+        Group group = new Group(name, roomId, generateGroupId(), 0);
         jsonService.save(group, "groups.json", Group.class);
     }
 
@@ -53,6 +53,11 @@ public class GroupService {
         List<Group> groups = jsonService.getAll("groups.json", Group.class);
         List<Group> roomGroups = groups.stream().filter(g -> g.getRoomId() == roomId).toList();
         return roomGroups.stream().map(Group::getName).collect(Collectors.toList());
+    }
+
+    public List<Group> getAllGroupsInRoom(int roomId){
+        List<Group> groups = jsonService.getAll("groups.json", Group.class);
+        return groups.stream().filter(g -> g.getRoomId() == roomId).toList();
     }
 
     public Group getRoomGroupByName(String name, int roomId) throws GroupNotFoundException {
@@ -83,6 +88,8 @@ public class GroupService {
                 .findFirst()
                 .orElseThrow(() -> new UserNotFoundException("user not found"));
         foundUser.setGroup(groupId);
+
+
 
         for(int i = 0; i<roomUsers.size(); i++){
             if(roomUsers.get(i).getUser() == userId){

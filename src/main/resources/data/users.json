@@ -1,6 +1,6 @@
 [
   {
-    "username": "teacher",
+    "username": "nigga",
     "password": "1",
     "userType": "TEACHER",
     "id": 1,
@@ -9,25 +9,25 @@
     ]
   },
   {
-    "username": "sigma",
+    "username": "nigga2",
     "password": "1",
-    "userType": "STUDENT",
+    "userType": "TEACHER",
     "id": 2,
-    "rooms": [
-      1
-    ]
+    "rooms": []
   },
   {
     "username": "reinis",
     "password": "1",
     "userType": "STUDENT",
     "id": 3,
-    "rooms": []
+    "rooms": [
+      1
+    ]
   },
   {
-    "username": "teacher2",
+    "username": "sigma",
     "password": "1",
-    "userType": "TEACHER",
+    "userType": "STUDENT",
     "id": 4,
     "rooms": [
       1

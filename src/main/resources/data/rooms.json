@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "istaba",
+    "name": "room",
     "users": [
       {
-        "user": 2,
-        "group": 3
+        "user": 4,
+        "group": 0
       },
       {
-        "user": 4,
-        "group": 4
+        "user": 3,
+        "group": 0
       }
     ],
     "owner": 1,
     "joinRequests": [],
-    "joinCode": 60890843
+    "joinCode": 13793055
   }
 ]

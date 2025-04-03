@@ -19,7 +19,6 @@ public class User {
         this.password = password;
         this.userType = userRole;
         this.rooms = rooms;
-
     }
 
     public UserRole getUserType() {

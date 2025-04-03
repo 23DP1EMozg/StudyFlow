@@ -2,12 +2,21 @@ package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.GroupExistsException;
+import com.example.eksamens_vm.exceptions.GroupNotFoundException;
+import com.example.eksamens_vm.exceptions.RoomNotFoundException;
+import com.example.eksamens_vm.models.Group;
+import com.example.eksamens_vm.models.GroupTable;
+import com.example.eksamens_vm.models.UserTable;
 import com.example.eksamens_vm.services.GroupService;
 import com.example.eksamens_vm.utils.SceneManager;
+import com.example.eksamens_vm.utils.TypeConvertionManager;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,9 +40,14 @@ public class GroupsOwnerController implements Initializable {
     @FXML
     private Text error;
     @FXML
-    private ListView<String> groupsList;
+    private TableView<GroupTable> table;
+    @FXML
+    private TableColumn<GroupTable, String> nameColumn;
+    @FXML
+    private TableColumn<GroupTable, String> countColumn;
 
     private Session session = Session.getInstance();
+    private TypeConvertionManager typeConvertionManager = new TypeConvertionManager();
 
 
     @FXML
@@ -56,19 +70,33 @@ public class GroupsOwnerController implements Initializable {
             error.setFill(Color.LIMEGREEN);
             error.setText("Created group " + groupName);
 
-            List<String> groupNames = groupService.getAllRoomGroupNames(session.getJoinedRoom().getId());
-            groupsList.getItems().clear();
-            groupsList.getItems().addAll(groupNames);
+            List<Group> groups = groupService.getAllGroupsInRoom(session.getJoinedRoom().getId());
+            table.getItems().clear();
+            table.setItems(typeConvertionManager.convertToGroupTable(groups));
         }catch(GroupExistsException e){
             error.setFill(Color.RED);
             error.setText(e.getMessage());
+        } catch (RoomNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (GroupNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> groupNames = groupService.getAllRoomGroupNames(session.getJoinedRoom().getId());
-        groupsList.getItems().addAll(groupNames);
+        List<Group> groups = groupService.getAllGroupsInRoom(session.getJoinedRoom().getId());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        countColumn.setCellValueFactory(cellData -> cellData.getValue().getUsersCountProperty());
+
+        try {
+            ObservableList<GroupTable> groupTables = typeConvertionManager.convertToGroupTable(groups);
+            table.setItems(groupTables);
+        } catch (GroupNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (RoomNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         logo.setImage(image);
     }
 }
