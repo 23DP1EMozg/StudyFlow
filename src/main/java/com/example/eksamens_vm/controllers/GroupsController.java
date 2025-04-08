@@ -63,4 +63,9 @@ public class GroupsController implements Initializable {
         }
         logo.setImage(image);
     }
+
+    @FXML
+    private void toTests(ActionEvent event) {
+        SceneManager.switchScenes(event, "tests", "tests");
+    }
 }

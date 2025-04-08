@@ -115,4 +115,9 @@ public class AllUsersStudent implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void toTests(ActionEvent event) {
+        SceneManager.switchScenes(event, "tests", "tests");
+    }
 }

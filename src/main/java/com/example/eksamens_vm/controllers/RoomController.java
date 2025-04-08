@@ -45,4 +45,9 @@ public class RoomController implements Initializable {
     private void toAllUsers(ActionEvent event) {
         SceneManager.switchScenes(event, "all_users", "All Users");
     }
+
+    @FXML
+    private void toTests(ActionEvent event) {
+        SceneManager.switchScenes(event, "tests", "tests");
+    }
 }

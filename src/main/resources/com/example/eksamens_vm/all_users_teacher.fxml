@@ -24,6 +24,7 @@
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" text="All Users" />
             <Button layoutX="218.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
+            <Button layoutX="312.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
          </children>
       </Pane>
       <ChoiceBox fx:id="filterBox" layoutX="115.0" layoutY="159.0" prefWidth="150.0" />

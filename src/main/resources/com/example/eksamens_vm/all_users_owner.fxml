@@ -23,6 +23,7 @@
             </Text>
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Button layoutX="231.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
+            <Button layoutX="322.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
          </children>
       </Pane>
       <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />

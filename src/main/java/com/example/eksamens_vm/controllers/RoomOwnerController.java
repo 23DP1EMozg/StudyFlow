@@ -123,4 +123,9 @@ public class RoomOwnerController implements Initializable {
     private void toGroups(ActionEvent event) {
         SceneManager.switchScenes(event, "groups", "Groups");
     }
+
+    @FXML
+    private void toTests(ActionEvent event) {
+        SceneManager.switchScenes(event, "tests", "tests");
+    }
 }

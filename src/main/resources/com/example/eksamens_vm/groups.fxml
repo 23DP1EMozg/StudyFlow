@@ -22,6 +22,7 @@
                 <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
                 <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllUsers" text="All Users" />
                 <Button layoutX="224.0" layoutY="37.0" mnemonicParsing="false" text="Groups" />
+            <Button layoutX="320.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
             </children>
         </Pane>
       <Text layoutX="43.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Groups" textAlignment="CENTER" wrappingWidth="274.0">

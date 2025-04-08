@@ -1,6 +1,7 @@
 package com.example.eksamens_vm.utils;
 
 import com.example.eksamens_vm.data.Session;
+import com.example.eksamens_vm.enums.UserRole;
 import com.example.eksamens_vm.models.SceneHistory;
 import com.example.eksamens_vm.models.User;
 import javafx.event.ActionEvent;
@@ -124,7 +125,7 @@ public class SceneManager {
        //ALL USERS PAGE
          if(fxmlFile.equals("all_users")){
 
-            if(session.getLoggedInUser().getId() == session.getJoinedRoom().getOwner()){
+            if(user.getId() == session.getJoinedRoom().getOwner()){
                 return "all_users_owner.fxml";
             }
 
@@ -156,7 +157,7 @@ public class SceneManager {
         //GROUPS
         if(fxmlFile.equals("groups")){
 
-            if(session.getLoggedInUser().getId() == session.getJoinedRoom().getOwner()){
+            if(user.getId() == session.getJoinedRoom().getOwner()){
                 return "groups_owner.fxml";
             }
 
@@ -166,6 +167,19 @@ public class SceneManager {
                 }
 
 
+            }
+        }
+
+        //TESTS
+        if(fxmlFile.equals("tests")){
+            switch(user.getUserType()){
+                case STUDENT -> {
+                    return "tests_students.fxml";
+                }
+
+                case TEACHER -> {
+                    return "tests.fxml";
+                }
             }
         }
         return fxmlFile;

@@ -22,6 +22,7 @@
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Button layoutX="118.0" layoutY="37.0" mnemonicParsing="false" onAction="#toAllUsers" text="All Users" />
             <Button layoutX="223.0" layoutY="37.0" mnemonicParsing="false" onAction="#toGroups" text="Groups" />
+            <Button layoutX="322.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
          </children>
       </Pane>
       <ImageView fx:id="logo" fitHeight="99.0" fitWidth="98.0" layoutX="931.0" pickOnBounds="true" preserveRatio="true" />

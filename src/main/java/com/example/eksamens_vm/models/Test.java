@@ -5,5 +5,5 @@ public class Test {
     private String name;
     private int groupId;
     private int roomId;
-
+    private int teacherId;
 }

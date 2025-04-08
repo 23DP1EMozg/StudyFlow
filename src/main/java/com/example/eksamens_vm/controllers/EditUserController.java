@@ -96,4 +96,9 @@ public class EditUserController implements Initializable {
 
 
     }
+
+    @FXML
+    private void toTests(ActionEvent event) {
+        SceneManager.switchScenes(event, "tests", "tests");
+    }
 }
