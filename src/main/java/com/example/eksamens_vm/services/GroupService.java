@@ -1,10 +1,7 @@
 package com.example.eksamens_vm.services;
 
 
-import com.example.eksamens_vm.exceptions.GroupExistsException;
-import com.example.eksamens_vm.exceptions.GroupNotFoundException;
-import com.example.eksamens_vm.exceptions.RoomNotFoundException;
-import com.example.eksamens_vm.exceptions.UserNotFoundException;
+import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.Group;
 import com.example.eksamens_vm.models.Room;
 import com.example.eksamens_vm.models.RoomUser;
@@ -143,6 +140,16 @@ public class GroupService {
         }
 
         return getGroupById(roomUser.getGroup()).getName();
+    }
+
+    public Group getUsersGroupInRoom(int userId, int roomId) throws GroupNotFoundException, RoomNotFoundException, UserNotInGroupException {
+        Room room = roomService.getRoomById(roomId);
+        List<RoomUser> roomUsers = room.getUsers();
+        RoomUser roomUser = roomUsers.stream().filter(r -> r.getUser() == userId).findFirst().get();
+        if(roomUser.getGroup() == 0){
+            throw new UserNotInGroupException("user doesnt belong to a group");
+        }
+        return getGroupById(roomUser.getGroup());
     }
 
 

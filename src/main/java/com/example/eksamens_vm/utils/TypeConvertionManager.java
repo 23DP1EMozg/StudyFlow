@@ -6,6 +6,7 @@ import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.*;
 import com.example.eksamens_vm.services.GroupService;
 import com.example.eksamens_vm.services.RoomService;
+import com.example.eksamens_vm.services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class TypeConvertionManager {
     private GroupService groupService = new GroupService();
+    private UserService userService = new UserService();
 
     public ObservableList<UserTable> convertToUserTable(List<User> users, int roomId) throws UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
         ObservableList<UserTable> userTables = FXCollections.observableArrayList();
@@ -33,4 +35,26 @@ public class TypeConvertionManager {
         }
         return groupTables;
     }
+
+    public ObservableList<TestTable> convertToTestTable(List<Test> tests) throws GroupNotFoundException, UserNotFoundException {
+        ObservableList<TestTable> testTables = FXCollections.observableArrayList();
+
+        for(int i = 0; i<tests.size(); i++){
+            Test test = tests.get(i);
+            Group group = groupService.getGroupById(test.getId());
+            User teacher = userService.getUserById(test.getTeacherId());
+            TestTable testTable = new TestTable(
+                test.getName(),
+                test.getTestStatus(),
+                teacher.getUsername(),
+                group.getName()
+            );
+
+            testTables.add(testTable);
+        }
+
+        return testTables;
+    }
+
 }
+

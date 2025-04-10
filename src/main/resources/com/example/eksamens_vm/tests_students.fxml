@@ -25,13 +25,19 @@
                 <Button layoutX="313.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
             </children>
         </Pane>
-        <TableView layoutX="354.0" layoutY="176.0" prefHeight="430.0" prefWidth="315.0">
-            <columns>
-                <TableColumn prefWidth="110.00003814697266" text="Name" />
-                <TableColumn prefWidth="97.99998474121094" text="Group" />
-                <TableColumn prefWidth="108.66668701171875" text="Teacher" />
-            </columns>
-        </TableView>
         <Button layoutX="354.0" layoutY="617.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="315.0" text="View" />
+      <TableView fx:id="table" layoutX="310.0" layoutY="179.0" prefHeight="430.0" prefWidth="423.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="110.00003814697266" text="Name" />
+            <TableColumn fx:id="groupColumn" prefWidth="97.99998474121094" text="Group" />
+            <TableColumn fx:id="teacherColumn" prefWidth="105.33333333333331" text="Teacher" />
+            <TableColumn fx:id="statusColumn" prefWidth="107.99995930989581" text="Status" />
+         </columns>
+      </TableView>
+      <Text fx:id="error" fill="RED" layoutX="-1.0" layoutY="700.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1025.6666666666665">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

@@ -24,7 +24,6 @@ public class UserService {
     public int generateNewId(){
          List<User> users = jsonService.getAll("users.json", User.class);
          return users.isEmpty() ? 1 : users.getLast().getId() + 1;
-
     }
 
     public boolean userExists(String username) {

@@ -13,7 +13,9 @@
     "password": "1",
     "userType": "TEACHER",
     "id": 2,
-    "rooms": []
+    "rooms": [
+      1
+    ]
   },
   {
     "username": "reinis",
@@ -29,6 +31,15 @@
     "password": "1",
     "userType": "STUDENT",
     "id": 4,
+    "rooms": [
+      1
+    ]
+  },
+  {
+    "username": "nils",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 5,
     "rooms": [
       1
     ]

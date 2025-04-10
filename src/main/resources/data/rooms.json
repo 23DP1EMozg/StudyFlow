@@ -9,7 +9,15 @@
       },
       {
         "user": 3,
-        "group": 2
+        "group": 1
+      },
+      {
+        "user": 2,
+        "group": 0
+      },
+      {
+        "user": 5,
+        "group": 0
       }
     ],
     "owner": 1,

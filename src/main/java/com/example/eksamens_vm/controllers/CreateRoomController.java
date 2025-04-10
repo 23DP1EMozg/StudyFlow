@@ -1,5 +1,6 @@
 package com.example.eksamens_vm.controllers;
 
+import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.InputFieldEmptyException;
 import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.utils.SceneManager;
@@ -20,15 +21,13 @@ public class CreateRoomController implements Initializable {
 
 
     @FXML
-    private Button createButton;
-
-    @FXML
     private ImageView logo;
 
     @FXML
     private TextField nameInput;
     @FXML
     private Text error;
+
 
     RoomService roomService = new RoomService();
 
@@ -61,4 +60,6 @@ public class CreateRoomController implements Initializable {
     private void toTests(ActionEvent event) {
         SceneManager.switchScenes(event, "tests", "tests");
     }
+
+
 }
