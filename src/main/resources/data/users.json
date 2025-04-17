@@ -1,6 +1,6 @@
 [
   {
-    "username": "nigga",
+    "username": "teacher",
     "password": "1",
     "userType": "TEACHER",
     "id": 1,
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "username": "nigga2",
+    "username": "teacher2",
     "password": "1",
     "userType": "TEACHER",
     "id": 2,

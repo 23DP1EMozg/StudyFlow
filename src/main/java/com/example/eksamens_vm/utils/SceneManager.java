@@ -5,10 +5,12 @@ import com.example.eksamens_vm.enums.UserRole;
 import com.example.eksamens_vm.models.SceneHistory;
 import com.example.eksamens_vm.models.User;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -117,11 +119,14 @@ public class SceneManager {
         history.clear();
     }
 
+
     private static String getPermittedScene(String fxmlFile){
         User user = session.getLoggedInUser();
         if(user == null){
             return fxmlFile;
         }
+
+
        //ALL USERS PAGE
          if(fxmlFile.equals("all_users")){
 

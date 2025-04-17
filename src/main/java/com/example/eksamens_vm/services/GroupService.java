@@ -1,6 +1,7 @@
 package com.example.eksamens_vm.services;
 
 
+import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.Group;
 import com.example.eksamens_vm.models.Room;
@@ -15,6 +16,8 @@ public class GroupService {
 
     JsonService jsonService = new JsonService();
     RoomService roomService = new RoomService();
+    Session session = Session.getInstance();
+    UserService userService = new UserService();
 
 
     private int generateGroupId(){
@@ -150,6 +153,20 @@ public class GroupService {
             throw new UserNotInGroupException("user doesnt belong to a group");
         }
         return getGroupById(roomUser.getGroup());
+    }
+
+    public List<User> getAllUsersInGroup(int groupId) throws GroupNotFoundException, RoomNotFoundException, UserNotFoundException {
+        Room room = roomService.getRoomById(session.getJoinedRoom().getId());
+        List<RoomUser> roomUsers = room.getUsers();
+        List<User> users = new ArrayList<>();
+
+        for(int i = 0; i < roomUsers.size(); i++){
+            RoomUser roomUser = roomUsers.get(i);
+            if(roomUser.getGroup() == groupId){
+                users.add(userService.getUserById(roomUser.getUser()));
+            }
+        }
+        return users;
     }
 
 

@@ -6,6 +6,7 @@ import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.*;
 import com.example.eksamens_vm.services.GroupService;
 import com.example.eksamens_vm.services.RoomService;
+import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import java.util.List;
 public class TypeConvertionManager {
     private GroupService groupService = new GroupService();
     private UserService userService = new UserService();
+    private TestService testService = new TestService();
 
     public ObservableList<UserTable> convertToUserTable(List<User> users, int roomId) throws UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
         ObservableList<UserTable> userTables = FXCollections.observableArrayList();
@@ -41,7 +43,7 @@ public class TypeConvertionManager {
 
         for(int i = 0; i<tests.size(); i++){
             Test test = tests.get(i);
-            Group group = groupService.getGroupById(test.getId());
+            Group group = groupService.getGroupById(test.getGroupId());
             User teacher = userService.getUserById(test.getTeacherId());
             TestTable testTable = new TestTable(
                 test.getName(),
@@ -54,6 +56,41 @@ public class TypeConvertionManager {
         }
 
         return testTables;
+    }
+
+    public ObservableList<TestAttemptTable> convertToTestAttemptTable(List<TestAttempt> testAttempts) throws UserNotFoundException {
+        ObservableList<TestAttemptTable> testAttemptTables = FXCollections.observableArrayList();
+
+        for(int i = 0; i<testAttempts.size(); i++){
+            TestAttempt testAttempt = testAttempts.get(i);
+            User user = userService.getUserById(testAttempt.getUserId());
+
+            TestAttemptTable testAttemptTable = new TestAttemptTable(
+                    user.getUsername(),
+                    testAttempt.getGrade(),
+                    testAttempt.getPercent()
+            );
+            testAttemptTables.add(testAttemptTable);
+        }
+        return testAttemptTables;
+    }
+
+    public ObservableList<TestAttemptTable> convertUsersToTestAttemptTable(List<User> users) throws UserNotFoundException {
+        ObservableList<TestAttemptTable> testAttemptTables = FXCollections.observableArrayList();
+
+        for(int i = 0; i<users.size(); i++){
+            User user = users.get(i);
+
+            TestAttemptTable testAttemptTable = new TestAttemptTable(
+                    user.getUsername(),
+                    -1,
+                    -1
+            );
+
+            testAttemptTables.add(testAttemptTable);
+        }
+
+        return testAttemptTables;
     }
 
 }

@@ -6,5 +6,21 @@
     "roomId": 1,
     "teacherId": 1,
     "testStatus": "INCOMPLETE"
+  },
+  {
+    "id": 2,
+    "name": "fizika",
+    "groupId": 2,
+    "roomId": 1,
+    "teacherId": 1,
+    "testStatus": "INCOMPLETE"
+  },
+  {
+    "id": 3,
+    "name": "Latviesu valoda",
+    "groupId": 1,
+    "roomId": 1,
+    "teacherId": 1,
+    "testStatus": "INCOMPLETE"
   }
 ]

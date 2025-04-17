@@ -5,11 +5,11 @@
     "users": [
       {
         "user": 4,
-        "group": 2
+        "group": 1
       },
       {
         "user": 3,
-        "group": 1
+        "group": 2
       },
       {
         "user": 2,
@@ -17,7 +17,7 @@
       },
       {
         "user": 5,
-        "group": 0
+        "group": 1
       }
     ],
     "owner": 1,

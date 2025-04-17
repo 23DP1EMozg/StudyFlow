@@ -30,6 +30,7 @@ public class UserService {
         List<User> users = jsonService.getAll("users.json", User.class);
         System.out.println(users);
         return users.stream().anyMatch(user -> user.getUsername().equals(username));
+
     }
 
     public boolean userExists(int userId) {

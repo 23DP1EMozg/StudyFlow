@@ -2,12 +2,14 @@ package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.GroupNotFoundException;
+import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Test;
 import com.example.eksamens_vm.models.TestTable;
 import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.utils.SceneManager;
 import com.example.eksamens_vm.utils.TypeConvertionManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,8 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.List;
@@ -36,10 +40,13 @@ public class TestsController implements Initializable {
     private TableColumn<TestTable, String> teacherColumn;
     @FXML
     private TableColumn<TestTable, String> statusColumn;
+    @FXML
+    private Text error;
 
     private Image image = new Image(Objects.requireNonNull(getClass().getResource("/images/logo.png")).toExternalForm());
     private TypeConvertionManager typeConvertionManager = new TypeConvertionManager();
     private Session session = Session.getInstance();
+
     private TestService testService = new TestService();
 
     @FXML
@@ -67,8 +74,24 @@ public class TestsController implements Initializable {
         SceneManager.switchScenes(event, "create_test.fxml", "create test");
     }
 
+    @FXML
+    private void viewTest(ActionEvent event) {
 
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            error.setText("No test selected");
+            return;
+        }
 
+        try {
+            TestViewTeacherController controller = SceneManager.switchScenesWithController(event, "test_view_teacher.fxml", table.getSelectionModel().getSelectedItem().getName());
+            assert controller != null;
+            Test test = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
+            controller.setTest(test);
+
+        } catch (TestNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     @Override
@@ -88,5 +111,6 @@ public class TestsController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 
 }

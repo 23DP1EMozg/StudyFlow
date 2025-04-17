@@ -3,11 +3,11 @@
     "id": 1,
     "name": "DP1-1",
     "roomId": 1,
-    "usersCount": 1
+    "usersCount": 2
   },
   {
     "id": 2,
-    "name": "DP1-2",
+    "name": "DP2-1",
     "roomId": 1,
     "usersCount": 1
   }
