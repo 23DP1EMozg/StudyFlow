@@ -16,7 +16,6 @@ import java.util.List;
 public class TypeConvertionManager {
     private GroupService groupService = new GroupService();
     private UserService userService = new UserService();
-    private TestService testService = new TestService();
 
     public ObservableList<UserTable> convertToUserTable(List<User> users, int roomId) throws UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
         ObservableList<UserTable> userTables = FXCollections.observableArrayList();
@@ -91,6 +90,15 @@ public class TypeConvertionManager {
         }
 
         return testAttemptTables;
+    }
+
+    public TestAttempt convertUserToTestAttempt(User user, int testId){
+        return new TestAttempt(
+                user.getId(),
+                -1,
+                testId,
+                -1
+        );
     }
 
 }

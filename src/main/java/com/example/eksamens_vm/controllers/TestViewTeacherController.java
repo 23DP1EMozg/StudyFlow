@@ -2,8 +2,10 @@ package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
+import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.Test;
+import com.example.eksamens_vm.models.TestAttempt;
 import com.example.eksamens_vm.models.TestAttemptTable;
 import com.example.eksamens_vm.models.User;
 import com.example.eksamens_vm.services.GroupService;
@@ -86,8 +88,21 @@ public class TestViewTeacherController{
             testService.saveTestAttempt(test.getId(),user.getId(), percentageInput.getText());
             error.setFill(Color.GREENYELLOW);
             error.setText("Saved!");
+
+            List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
+            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
+            table.getItems().clear();
+            table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
         }catch (InputMismatchException e){
             error.setText(e.getMessage());
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (RoomNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (GroupNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (TestNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -109,7 +124,8 @@ public class TestViewTeacherController{
 
         try {
             List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
-            table.setItems(typeConvertionManager.convertUsersToTestAttemptTable(users));
+            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
+            table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
         } catch (GroupNotFoundException e) {
             throw new RuntimeException(e);
         } catch (RoomNotFoundException e) {

@@ -1,8 +1,20 @@
 [
   {
+    "userId": 3,
+    "testId": 1,
+    "percent": 34.0,
+    "grade": 3
+  },
+  {
     "userId": 5,
     "testId": 3,
-    "percent": 44.0,
-    "grade": 4
+    "percent": 56.0,
+    "grade": 6
+  },
+  {
+    "userId": 4,
+    "testId": 3,
+    "percent": 23.0,
+    "grade": 2
   }
 ]
