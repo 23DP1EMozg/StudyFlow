@@ -27,7 +27,7 @@
             <Button layoutX="313.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
          </children>
       </Pane>
-      <TableView fx:id="table" layoutX="51.0" layoutY="131.0" prefHeight="476.0" prefWidth="297.0">
+      <TableView fx:id="table" layoutX="22.0" layoutY="188.0" prefHeight="476.0" prefWidth="297.0">
          <columns>
             <TableColumn fx:id="studentColumn" prefWidth="100.00003433227539" text="Student" />
             <TableColumn fx:id="gradeColumn" prefWidth="105.33332824707031" text="Grade" />
@@ -42,6 +42,11 @@
       </Label>
       <Button layoutX="735.0" layoutY="213.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="149.0" text="Save" />
       <Text fx:id="error" fill="RED" layoutX="737.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="149.33333333333348">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="sortedText" layoutX="22.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="297.33333333333337">
          <font>
             <Font size="20.0" />
          </font>

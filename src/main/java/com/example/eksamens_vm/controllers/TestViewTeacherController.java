@@ -1,5 +1,6 @@
 package com.example.eksamens_vm.controllers;
 
+import com.example.eksamens_vm.enums.TestStatus;
 import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.TestNotFoundException;
@@ -52,6 +53,8 @@ public class TestViewTeacherController{
     @FXML
     private Text error;
     @FXML
+    private Text sortedText;
+    @FXML
     private void toTests(ActionEvent event) {
         SceneManager.switchScenes(event, "tests", "tests");
     }
@@ -83,6 +86,12 @@ public class TestViewTeacherController{
 
     @FXML
     private void save(ActionEvent event) {
+
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            error.setText("please select a student");
+            return;
+        }
+
         try{
             User user = userService.getUserByUsername(table.getSelectionModel().getSelectedItem().getStudent());
             testService.saveTestAttempt(test.getId(),user.getId(), percentageInput.getText());
@@ -92,7 +101,12 @@ public class TestViewTeacherController{
             List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
             List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
             table.getItems().clear();
-            table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
+            if(test.getTestStatus() == TestStatus.COMPLETE){
+                table.setItems(testService.sortTestAttempts(testAttempts));
+                sortedText.setText("Sorted by percentage");
+            }else{
+                table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
+            }
         }catch (InputMismatchException e){
             error.setText(e.getMessage());
         } catch (UserNotFoundException e) {
@@ -125,7 +139,13 @@ public class TestViewTeacherController{
         try {
             List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
             List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
-            table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
+            if(test.getTestStatus() == TestStatus.COMPLETE){
+                table.setItems(testService.sortTestAttempts(testAttempts));
+                sortedText.setText("Sorted by percentage");
+            }else{
+                table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
+            }
+
         } catch (GroupNotFoundException e) {
             throw new RuntimeException(e);
         } catch (RoomNotFoundException e) {

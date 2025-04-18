@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "matematika",
-    "groupId": 2,
+    "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
     "testStatus": "COMPLETE"
@@ -13,14 +13,22 @@
     "groupId": 2,
     "roomId": 1,
     "teacherId": 1,
-    "testStatus": "INCOMPLETE"
+    "testStatus": "COMPLETE"
   },
   {
     "id": 3,
-    "name": "Latviesu valoda",
+    "name": "vesture",
     "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
     "testStatus": "COMPLETE"
+  },
+  {
+    "id": 4,
+    "name": "asdad",
+    "groupId": 3,
+    "roomId": 2,
+    "teacherId": 1,
+    "testStatus": "INCOMPLETE"
   }
 ]

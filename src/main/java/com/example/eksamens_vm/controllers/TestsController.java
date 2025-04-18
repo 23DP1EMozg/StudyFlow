@@ -103,7 +103,7 @@ public class TestsController implements Initializable {
         teacherColumn.setCellValueFactory(cellData -> cellData.getValue().getTeacherProperty());
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
-        List<Test> userTests = testService.getAllUserCreatedTests(session.getLoggedInUser().getId());
+        List<Test> userTests = testService.getAllUserCreatedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
         try {
             ObservableList<TestTable> testTable = typeConvertionManager.convertToTestTable(userTests);
             table.setItems(testTable);

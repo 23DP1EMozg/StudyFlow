@@ -5,7 +5,8 @@
     "userType": "TEACHER",
     "id": 1,
     "rooms": [
-      1
+      1,
+      2
     ]
   },
   {
@@ -40,6 +41,15 @@
     "password": "1",
     "userType": "STUDENT",
     "id": 5,
+    "rooms": [
+      1
+    ]
+  },
+  {
+    "username": "artjoms",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 6,
     "rooms": [
       1
     ]

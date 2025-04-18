@@ -9,7 +9,7 @@
       },
       {
         "user": 3,
-        "group": 2
+        "group": 1
       },
       {
         "user": 2,
@@ -18,10 +18,22 @@
       {
         "user": 5,
         "group": 1
+      },
+      {
+        "user": 6,
+        "group": 1
       }
     ],
     "owner": 1,
     "joinRequests": [],
     "joinCode": 13793055
+  },
+  {
+    "id": 2,
+    "name": "room2",
+    "users": [],
+    "owner": 1,
+    "joinRequests": [],
+    "joinCode": 40102917
   }
 ]

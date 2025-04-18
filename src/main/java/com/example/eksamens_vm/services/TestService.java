@@ -5,11 +5,9 @@ import com.example.eksamens_vm.enums.TestStatus;
 import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.*;
 import com.example.eksamens_vm.utils.TypeConvertionManager;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TestService {
@@ -44,9 +42,9 @@ public class TestService {
         jsonService.save(test, "tests.json", Test.class);
     }
 
-    public List<Test> getAllUserCreatedTests(int userId){
+    public List<Test> getAllUserCreatedTests(int userId, int roomId){
         List<Test> tests = jsonService.getAll("tests.json", Test.class);
-        return tests.stream().filter(t -> t.getTeacherId() == userId).collect(Collectors.toList());
+        return tests.stream().filter(t -> t.getTeacherId() == userId && t.getRoomId() == roomId).collect(Collectors.toList());
     }
 
     public List<Test> getAllUserAssignedTests(int userId, int roomId) throws RoomNotFoundException, UserNotInGroupException, GroupNotFoundException {
@@ -182,6 +180,29 @@ public class TestService {
 
         return users.size() == testAttempts.size();
 
+    }
+
+    public ObservableList<TestAttemptTable> sortTestAttempts(List<TestAttempt> testAttempts) throws UserNotFoundException {
+        List<TestAttempt> attempts = testAttempts
+                                .stream()
+                                .sorted(Comparator.comparing(TestAttempt::getPercent).reversed())
+                                .toList();
+
+        return typeConvertionManager.convertToTestAttemptTable(attempts);
+    }
+
+    public double getAverageGrade(int testId) {
+        List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
+                .stream()
+                .filter(t -> t.getTestId() == testId)
+                .toList();
+
+        double sum = 0;
+        for(int i = 0; i< attempts.size(); i++){
+            sum += attempts.get(i).getGrade();
+        }
+
+        return sum/attempts.size();
     }
 
 
