@@ -25,7 +25,7 @@
                 <Button layoutX="313.0" layoutY="37.0" mnemonicParsing="false" onAction="#toTests" text="Tests" />
             </children>
         </Pane>
-        <Button layoutX="354.0" layoutY="617.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="315.0" text="View" />
+        <Button layoutX="354.0" layoutY="617.0" mnemonicParsing="false" onAction="#viewTest" prefHeight="25.0" prefWidth="315.0" text="View" />
       <TableView fx:id="table" layoutX="310.0" layoutY="179.0" prefHeight="430.0" prefWidth="423.0">
          <columns>
             <TableColumn fx:id="nameColumn" prefWidth="110.00003814697266" text="Name" />

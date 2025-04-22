@@ -187,6 +187,18 @@ public class SceneManager {
                 }
             }
         }
+
+        //TEST VIEW
+        if(fxmlFile.equals("test_view")){
+            switch(user.getUserType()){
+                case STUDENT -> {
+                    return "test_view_student.fxml";
+                }
+                case TEACHER -> {
+                    return "test_view_teacher.fxml";
+                }
+            }
+        }
         return fxmlFile;
     }
 }

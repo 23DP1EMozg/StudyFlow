@@ -83,7 +83,7 @@ public class TestsController implements Initializable {
         }
 
         try {
-            TestViewTeacherController controller = SceneManager.switchScenesWithController(event, "test_view_teacher.fxml", table.getSelectionModel().getSelectedItem().getName());
+            TestViewTeacherController controller = SceneManager.switchScenesWithController(event, "test_view", table.getSelectionModel().getSelectedItem().getName());
             assert controller != null;
             Test test = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
             controller.setTest(test);

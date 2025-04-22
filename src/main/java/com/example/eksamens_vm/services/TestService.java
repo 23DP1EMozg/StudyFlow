@@ -44,6 +44,28 @@ public class TestService {
 
     public List<Test> getAllUserCreatedTests(int userId, int roomId){
         List<Test> tests = jsonService.getAll("tests.json", Test.class);
+        int incompleteTestCount = 0;
+        for(int i = 0; i<tests.size(); i++){
+            try {
+                if(!isTestCompleted(tests.get(i).getId())){
+                    tests.get(i).setTestStatus(TestStatus.INCOMPLETE);
+                    incompleteTestCount++;
+                }
+            } catch (TestNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (RoomNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (GroupNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if(incompleteTestCount > 0){
+            jsonService.saveMany(tests, "tests.json");
+        }
+
         return tests.stream().filter(t -> t.getTeacherId() == userId && t.getRoomId() == roomId).collect(Collectors.toList());
     }
 
@@ -191,6 +213,39 @@ public class TestService {
         return typeConvertionManager.convertToTestAttemptTable(attempts);
     }
 
+    public List<TestAttempt> sortTestAttemptsAsList(List<TestAttempt> testAttempts){
+
+        return testAttempts
+                .stream()
+                .sorted(Comparator.comparing(TestAttempt::getPercent).reversed())
+                .toList();
+    }
+
+    public int getUsersPlacementInTest(int testId, int userId) throws UserNotFoundException {
+        List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
+                .stream()
+                .filter(t -> t.getTestId() == testId)
+                .toList();
+
+        List<TestAttempt> sorted = sortTestAttemptsAsList(attempts);
+        for(int i = 0; i<sorted.size(); i++){
+            if(sorted.get(i).getUserId() == userId){
+                return i + 1;
+            }
+        }
+
+        throw new UserNotFoundException("user not found");
+
+    }
+
+    public int getUserCountInTest(int testId) {
+        return jsonService.getAll("test_attempts.json", TestAttempt.class)
+                .stream()
+                .filter(t -> t.getTestId() == testId)
+                .toList()
+                .size();
+    }
+
     public double getAverageGrade(int testId) {
         List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
                 .stream()
@@ -203,6 +258,15 @@ public class TestService {
         }
 
         return sum/attempts.size();
+    }
+
+    public TestAttempt getTestAttempt(int testId, int userId) throws TestNotFoundException {
+        List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class);
+        return attempts
+                .stream()
+                .filter(t -> t.getTestId() == testId && t.getUserId() == userId)
+                .findFirst()
+                .orElseThrow(() -> new TestNotFoundException("test not found!"));
     }
 
 

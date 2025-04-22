@@ -13,7 +13,7 @@
     "groupId": 2,
     "roomId": 1,
     "teacherId": 1,
-    "testStatus": "COMPLETE"
+    "testStatus": "INCOMPLETE"
   },
   {
     "id": 3,
@@ -28,6 +28,14 @@
     "name": "asdad",
     "groupId": 3,
     "roomId": 2,
+    "teacherId": 1,
+    "testStatus": "INCOMPLETE"
+  },
+  {
+    "id": 5,
+    "name": "biologija",
+    "groupId": 1,
+    "roomId": 1,
     "teacherId": 1,
     "testStatus": "INCOMPLETE"
   }

@@ -1,10 +1,7 @@
 package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
-import com.example.eksamens_vm.exceptions.GroupNotFoundException;
-import com.example.eksamens_vm.exceptions.RoomNotFoundException;
-import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.exceptions.UserNotInGroupException;
+import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.Test;
 import com.example.eksamens_vm.models.TestTable;
 import com.example.eksamens_vm.services.TestService;
@@ -67,6 +64,27 @@ public class TestsStudentController implements Initializable {
     private void toGroups(ActionEvent event) {
         SceneManager.switchScenes(event, "groups", "groups");
     }
+
+
+    @FXML
+    private void viewTest(ActionEvent event) {
+
+        if(table.getSelectionModel().getSelectedItem() == null) {
+            error.setText("No test selected");
+            return;
+        }
+
+        try {
+            TestViewStudentController controller = SceneManager.switchScenesWithController(event, "test_view", table.getSelectionModel().getSelectedItem().getName());
+            assert controller != null;
+            Test test = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
+            controller.setTest(test);
+
+        } catch (TestNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -40,5 +40,17 @@
     "testId": 3,
     "percent": 34.6,
     "grade": 4
+  },
+  {
+    "userId": 3,
+    "testId": 1,
+    "percent": 84.5,
+    "grade": 9
+  },
+  {
+    "userId": 6,
+    "testId": 1,
+    "percent": 34.4,
+    "grade": 3
   }
 ]
