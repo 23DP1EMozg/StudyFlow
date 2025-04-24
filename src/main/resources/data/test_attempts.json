@@ -1,56 +1,16 @@
 [
   {
-    "userId": 3,
-    "testId": 2,
-    "percent": 94.5,
-    "grade": 10
-  },
-  {
     "userId": 4,
     "testId": 1,
+    "percent": 87.0,
+    "grade": 9,
+    "roomId": 1
+  },
+  {
+    "userId": 3,
+    "testId": 3,
     "percent": 54.0,
-    "grade": 5
-  },
-  {
-    "userId": 5,
-    "testId": 1,
-    "percent": 75.9,
-    "grade": 8
-  },
-  {
-    "userId": 4,
-    "testId": 3,
-    "percent": 34.0,
-    "grade": 3
-  },
-  {
-    "userId": 3,
-    "testId": 3,
-    "percent": 67.0,
-    "grade": 7
-  },
-  {
-    "userId": 5,
-    "testId": 3,
-    "percent": 23.0,
-    "grade": 2
-  },
-  {
-    "userId": 6,
-    "testId": 3,
-    "percent": 34.6,
-    "grade": 4
-  },
-  {
-    "userId": 3,
-    "testId": 1,
-    "percent": 84.5,
-    "grade": 9
-  },
-  {
-    "userId": 6,
-    "testId": 1,
-    "percent": 34.4,
-    "grade": 3
+    "grade": 5,
+    "roomId": 2
   }
 ]

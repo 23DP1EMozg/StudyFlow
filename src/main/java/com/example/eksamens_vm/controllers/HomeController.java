@@ -89,9 +89,9 @@ public class HomeController implements Initializable {
 
     @FXML
     private void requestRoom(){
-        int joinCode = Integer.parseInt(requestCodeInput.getText());
 
         try{
+            int joinCode = Integer.parseInt(requestCodeInput.getText());
             Room room = roomService.requestRoom(joinCode, session.getLoggedInUser());
             error.setFill(Color.GREENYELLOW);
             error.setText("Requested to join room- " + room.getName());
@@ -99,6 +99,9 @@ public class HomeController implements Initializable {
         }catch (RoomNotFoundException | RoomAlreadyRequestedException | UserAlreadyInRoomException e){
             error.setFill(Color.RED);
             error.setText(e.getMessage());
+        }catch (NumberFormatException e){
+            error.setFill(Color.RED);
+            error.setText("Please enter a valid number");
         }
     }
 

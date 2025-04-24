@@ -92,17 +92,27 @@ public class TestViewTeacherController{
             return;
         }
 
+
+
         try{
             User user = userService.getUserByUsername(table.getSelectionModel().getSelectedItem().getStudent());
-            testService.saveTestAttempt(test.getId(),user.getId(), percentageInput.getText());
+            if(table.getSelectionModel().getSelectedItem().getGrade() != -1) {
+                System.out.println("UPDATE");
+                testService.updateTestAttempt(user.getId(), test.getId(), Double.parseDouble(percentageInput.getText()));
+            }else{
+                System.out.println("CREATE");
+                testService.saveTestAttempt(test.getId(),user.getId(), percentageInput.getText());
+            }
+
             error.setFill(Color.GREENYELLOW);
             error.setText("Saved!");
 
             List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
             List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
             table.getItems().clear();
+            test = testService.checkAndUpdateTestStatus(test.getId());
             if(test.getTestStatus() == TestStatus.COMPLETE){
-                table.setItems(testService.sortTestAttempts(testAttempts));
+                table.setItems(typeConvertionManager.sortTestAttempts(testAttempts));
                 sortedText.setText("Sorted by percentage");
             }else{
                 table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
@@ -140,7 +150,7 @@ public class TestViewTeacherController{
             List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
             List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
             if(test.getTestStatus() == TestStatus.COMPLETE){
-                table.setItems(testService.sortTestAttempts(testAttempts));
+                table.setItems(typeConvertionManager.sortTestAttempts(testAttempts));
                 sortedText.setText("Sorted by percentage");
             }else{
                 table.setItems(typeConvertionManager.convertToTestAttemptTable(testAttempts));
@@ -151,6 +161,8 @@ public class TestViewTeacherController{
         } catch (RoomNotFoundException e) {
             throw new RuntimeException(e);
         } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (TestNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

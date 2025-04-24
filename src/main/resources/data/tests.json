@@ -5,38 +5,22 @@
     "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
-    "testStatus": "COMPLETE"
+    "testStatus": "INCOMPLETE"
   },
   {
     "id": 2,
-    "name": "fizika",
-    "groupId": 2,
+    "name": "biologija",
+    "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
     "testStatus": "INCOMPLETE"
   },
   {
     "id": 3,
-    "name": "vesture",
-    "groupId": 1,
-    "roomId": 1,
-    "teacherId": 1,
-    "testStatus": "COMPLETE"
-  },
-  {
-    "id": 4,
-    "name": "asdad",
+    "name": "math",
     "groupId": 3,
     "roomId": 2,
     "teacherId": 1,
-    "testStatus": "INCOMPLETE"
-  },
-  {
-    "id": 5,
-    "name": "biologija",
-    "groupId": 1,
-    "roomId": 1,
-    "teacherId": 1,
-    "testStatus": "INCOMPLETE"
+    "testStatus": "COMPLETE"
   }
 ]

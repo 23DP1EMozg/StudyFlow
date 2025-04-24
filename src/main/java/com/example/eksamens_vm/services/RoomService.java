@@ -77,9 +77,7 @@ public class RoomService {
                 .orElseThrow(() -> new RoomNotFoundException("room not found!"));
     }
 
-    public void addStudent(Student student, int roomId){
 
-    }
 
     private int getNewJoinCode(){
         Random random = new Random();
@@ -114,33 +112,35 @@ public class RoomService {
                 .orElseThrow(() -> new RoomNotFoundException("room not found!"));
     }
 
-    public Room requestRoom(int joinCode, User user) throws RoomNotFoundException, RoomAlreadyRequestedException, UserAlreadyInRoomException {
-        Room room = getRoomByJoinCode(joinCode);
-        List<Integer> roomRequests = room.getJoinRequests();
+    public Room requestRoom(int joinCode, User user) throws RoomNotFoundException, RoomAlreadyRequestedException, UserAlreadyInRoomException, NumberFormatException {
 
-        if(roomRequests.contains(user.getId())){
-            throw new RoomAlreadyRequestedException("you have already requested to join this room!");
-        }
+            Room room = getRoomByJoinCode(joinCode);
+            List<Integer> roomRequests = room.getJoinRequests();
 
-        for(int i = 0; i<room.getUsers().size(); i++){
-            if(room.getUsers().get(i).getUser() == user.getId()){
-                throw new UserAlreadyInRoomException("you have already joined this room!");
+
+            if(roomRequests.contains(user.getId())){
+                throw new RoomAlreadyRequestedException("you have already requested to join this room!");
             }
-        }
 
-        List<Room> allRooms = jsonService.getAll("rooms.json", Room.class);
-        roomRequests.add(user.getId());
-        room.setJoinRequests(roomRequests);
-
-        for(int i = 0; i<allRooms.size(); i++){
-            if(allRooms.get(i).getId() == room.getId()){
-                allRooms.set(i, room);
-                jsonService.saveMany(allRooms, "rooms.json");
-                return room;
+            for(int i = 0; i<room.getUsers().size(); i++){
+                if(room.getUsers().get(i).getUser() == user.getId()){
+                    throw new UserAlreadyInRoomException("you have already joined this room!");
+                }
             }
-        }
 
-        throw new RoomNotFoundException("room not found!");
+            List<Room> allRooms = jsonService.getAll("rooms.json", Room.class);
+            roomRequests.add(user.getId());
+            room.setJoinRequests(roomRequests);
+
+            for(int i = 0; i<allRooms.size(); i++){
+                if(allRooms.get(i).getId() == room.getId()){
+                    allRooms.set(i, room);
+                    jsonService.saveMany(allRooms, "rooms.json");
+                    return room;
+                }
+            }
+
+            throw new RoomNotFoundException("room not found!");
     }
 
     public List<String> getAllRequestsNames(int roomId) throws RoomNotFoundException, UserNotFoundException {

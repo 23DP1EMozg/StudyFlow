@@ -16,6 +16,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -38,7 +39,6 @@ public class EditUserController implements Initializable {
 
 
     private User user;
-    private UserService userService = new UserService();
     private GroupService groupService = new GroupService();
     private Session session = Session.getInstance();
 
@@ -67,12 +67,15 @@ public class EditUserController implements Initializable {
     private void saveGroup(ActionEvent event) {
         String groupName = menu.getValue();
         if(groupName == null){
+            error.setFill(Color.RED);
             error.setText("Please select a group");
             return;
         }
         try {
             int groupId = groupService.getRoomGroupByName(groupName, session.getJoinedRoom().getId()).getId();
             groupService.addUserToGroup(groupId, user.getId());
+            error.setFill(Color.GREENYELLOW);
+            error.setText("Successfully added user to group: " + groupName);
         } catch (GroupNotFoundException e) {
             error.setText(e.getMessage());
         } catch (UserNotFoundException e) {

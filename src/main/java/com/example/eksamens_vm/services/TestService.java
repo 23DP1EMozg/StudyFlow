@@ -4,8 +4,7 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.enums.TestStatus;
 import com.example.eksamens_vm.exceptions.*;
 import com.example.eksamens_vm.models.*;
-import com.example.eksamens_vm.utils.TypeConvertionManager;
-import javafx.collections.ObservableList;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,8 +13,6 @@ public class TestService {
     private Session session = Session.getInstance();
     private GroupService groupService = new GroupService();
     private JsonService jsonService = new JsonService();
-    private RoomService roomService = new RoomService();
-    private TypeConvertionManager typeConvertionManager = new TypeConvertionManager();
     private int generateNewId(){
         List<Test> tests = jsonService.getAll("tests.json", Test.class);
         return tests.isEmpty() ? 1 : tests.getLast().getId() + 1;
@@ -76,6 +73,15 @@ public class TestService {
         return tests.stream().filter(t -> t.getGroupId() == group.getId()).collect(Collectors.toList());
 
 
+
+    }
+
+    public List<TestAttempt> getAllUsersCompletedTests(int userId, int roomId){
+
+        return jsonService.getAll("test_attempts.json", TestAttempt.class)
+                .stream()
+                .filter(t -> t.getUserId() == userId && t.getRoomId() == roomId)
+                .toList();
 
     }
 
@@ -140,7 +146,7 @@ public class TestService {
 
 
     public void saveTestAttempt(int testId, int userId, String percentage) throws UserNotFoundException, RoomNotFoundException, TestNotFoundException, GroupNotFoundException {
-        Test test = getTestById(testId);
+
         if(!isNumeric(percentage) || percentage.isBlank()){
             throw new InputMismatchException("invalid percentage");
         }
@@ -149,12 +155,18 @@ public class TestService {
                 userId,
                 getGradeFromPercentage(Double.parseDouble(percentage)),
                 testId,
-                Double.parseDouble(percentage)
+                Double.parseDouble(percentage),
+                session.getJoinedRoom().getId()
         );
 
 
         jsonService.save(testAttempt, "test_attempts.json", TestAttempt.class);
 
+        checkAndUpdateTestStatus(testId);
+    }
+
+    public Test checkAndUpdateTestStatus(int testId) throws TestNotFoundException, UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
+        Test test = getTestById(testId);
         if(isTestCompleted(testId)){
             test.setTestStatus(TestStatus.COMPLETE);
             List<Test> tests = jsonService.getAll("tests.json", Test.class);
@@ -163,12 +175,26 @@ public class TestService {
                 if(tests.get(i).getId() == test.getId()){
                     tests.set(i, test);
                     jsonService.saveMany(tests, "tests.json");
+                    return tests.get(i);
                 }
             }
         }
+        return test;
     }
 
-    public List<TestAttempt> mergeTestAttemptsWithUsers(int testId, List<User> users) {
+    public TestAttempt convertUserToTestAttempt(User user, int testId) {
+        return new TestAttempt(
+                user.getId(),
+                -1,
+                testId,
+                -1,
+                session.getJoinedRoom().getId()
+
+        );
+    }
+
+
+    public List<TestAttempt> mergeTestAttemptsWithUsers(int testId, List<User> users) throws TestNotFoundException {
         List<TestAttempt> mergedAttempts = new ArrayList<>();
         List<TestAttempt> testAttempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
                 .stream()
@@ -185,11 +211,29 @@ public class TestService {
             if(match.isPresent()){
                 mergedAttempts.add(match.get());
             }else{
-                mergedAttempts.add(typeConvertionManager.convertUserToTestAttempt(user, testId));
+                mergedAttempts.add(convertUserToTestAttempt(user, testId));
             }
 
         }
+
+
+
+
         return mergedAttempts;
+    }
+
+    public void updateTestAttempt(int userId, int testId, double percentage) throws TestNotFoundException {
+        List<TestAttempt> testAttempts = jsonService.getAll("test_attempts.json", TestAttempt.class);
+
+        for(int i = 0; i< testAttempts.size(); i++){
+            TestAttempt testAttempt1 = testAttempts.get(i);
+            if(testAttempt1.getTestId() == testId && testAttempt1.getUserId() == userId){
+                testAttempts.set(i, new TestAttempt(userId, getGradeFromPercentage(percentage), testId, percentage, session.getJoinedRoom().getId()));
+                break;
+            }
+        }
+
+        jsonService.saveMany(testAttempts, "test_attempts.json");
     }
 
     public boolean isTestCompleted(int testId) throws TestNotFoundException, UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
@@ -204,14 +248,7 @@ public class TestService {
 
     }
 
-    public ObservableList<TestAttemptTable> sortTestAttempts(List<TestAttempt> testAttempts) throws UserNotFoundException {
-        List<TestAttempt> attempts = testAttempts
-                                .stream()
-                                .sorted(Comparator.comparing(TestAttempt::getPercent).reversed())
-                                .toList();
 
-        return typeConvertionManager.convertToTestAttemptTable(attempts);
-    }
 
     public List<TestAttempt> sortTestAttemptsAsList(List<TestAttempt> testAttempts){
 

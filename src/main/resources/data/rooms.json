@@ -13,7 +13,7 @@
       },
       {
         "user": 2,
-        "group": 0
+        "group": 1
       },
       {
         "user": 5,
@@ -31,7 +31,12 @@
   {
     "id": 2,
     "name": "room2",
-    "users": [],
+    "users": [
+      {
+        "user": 3,
+        "group": 3
+      }
+    ],
     "owner": 1,
     "joinRequests": [],
     "joinCode": 40102917

@@ -24,7 +24,8 @@
     "userType": "STUDENT",
     "id": 3,
     "rooms": [
-      1
+      1,
+      2
     ]
   },
   {

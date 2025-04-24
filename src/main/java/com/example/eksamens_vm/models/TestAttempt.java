@@ -5,12 +5,15 @@ public class TestAttempt {
     private int testId;
     private double percent;
     private int grade;
+    private int roomId;
 
-    public TestAttempt(int userId, int grade, int testId, double percent) {
+
+    public TestAttempt(int userId, int grade, int testId, double percent, int roomId) {
         this.userId = userId;
         this.grade = grade;
         this.testId = testId;
         this.percent = percent;
+        this.roomId = roomId;
     }
 
     public int getUserId() {
@@ -43,5 +46,13 @@ public class TestAttempt {
 
     public void setTestId(int testId) {
         this.testId = testId;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 }

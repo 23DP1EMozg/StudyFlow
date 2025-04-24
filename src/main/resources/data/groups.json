@@ -3,7 +3,7 @@
     "id": 1,
     "name": "DP1-1",
     "roomId": 1,
-    "usersCount": 4
+    "usersCount": 5
   },
   {
     "id": 2,
@@ -15,6 +15,6 @@
     "id": 3,
     "name": "DP3-1",
     "roomId": 2,
-    "usersCount": 0
+    "usersCount": 1
   }
 ]
