@@ -5,7 +5,7 @@ import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.RoomNotFoundException;
 import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Test;
+import com.example.eksamens_vm.models.TestModel;
 import com.example.eksamens_vm.models.TestAttempt;
 import com.example.eksamens_vm.models.TestAttemptTable;
 import com.example.eksamens_vm.models.User;
@@ -15,21 +15,16 @@ import com.example.eksamens_vm.services.UserService;
 import com.example.eksamens_vm.utils.SceneManager;
 import com.example.eksamens_vm.utils.TypeConvertionManager;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class TestViewTeacherController{
 
@@ -75,12 +70,13 @@ public class TestViewTeacherController{
     }
     @FXML
     private Text text;
+    @FXML Text avgText;
 
-    private Test test;
+    private TestModel testModel;
 
-    public void setTest(Test newTest) {
-        test = newTest;
-        text.setText(test.getName());
+    public void setTest(TestModel newTestModel) {
+        testModel = newTestModel;
+        text.setText(testModel.getName());
         initialize();
     }
 
@@ -98,20 +94,21 @@ public class TestViewTeacherController{
             User user = userService.getUserByUsername(table.getSelectionModel().getSelectedItem().getStudent());
             if(table.getSelectionModel().getSelectedItem().getGrade() != -1) {
                 System.out.println("UPDATE");
-                testService.updateTestAttempt(user.getId(), test.getId(), Double.parseDouble(percentageInput.getText()));
+                testService.updateTestAttempt(user.getId(), testModel.getId(), Double.parseDouble(percentageInput.getText()));
             }else{
                 System.out.println("CREATE");
-                testService.saveTestAttempt(test.getId(),user.getId(), percentageInput.getText());
+                testService.saveTestAttempt(testModel.getId(),user.getId(), percentageInput.getText());
             }
 
             error.setFill(Color.GREENYELLOW);
             error.setText("Saved!");
 
-            List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
-            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
+            List<User> users = groupService.getAllUsersInGroup(testModel.getGroupId());
+            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(testModel.getId(), users);
             table.getItems().clear();
-            test = testService.checkAndUpdateTestStatus(test.getId());
-            if(test.getTestStatus() == TestStatus.COMPLETE){
+            testModel = testService.checkAndUpdateTestStatus(testModel.getId());
+            if(testModel.getTestStatus() == TestStatus.COMPLETE){
+                avgText.setText("Average grade: " + testService.getAverageGrade(testModel.getId()));
                 table.setItems(typeConvertionManager.sortTestAttempts(testAttempts));
                 sortedText.setText("Sorted by percentage");
             }else{
@@ -131,6 +128,9 @@ public class TestViewTeacherController{
     }
 
     private void initialize() {
+        if(testModel.getTestStatus() == TestStatus.COMPLETE){
+            avgText.setText("Average grade: " + testService.getAverageGrade(testModel.getId()));
+        }
         studentColumn.setCellValueFactory(cellData -> cellData.getValue().getStudentProperty());
         gradeColumn.setCellValueFactory(cellData -> {
             int grade = cellData.getValue().getGrade();
@@ -147,9 +147,9 @@ public class TestViewTeacherController{
 
 
         try {
-            List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
-            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(test.getId(), users);
-            if(test.getTestStatus() == TestStatus.COMPLETE){
+            List<User> users = groupService.getAllUsersInGroup(testModel.getGroupId());
+            List<TestAttempt> testAttempts = testService.mergeTestAttemptsWithUsers(testModel.getId(), users);
+            if(testModel.getTestStatus() == TestStatus.COMPLETE){
                 table.setItems(typeConvertionManager.sortTestAttempts(testAttempts));
                 sortedText.setText("Sorted by percentage");
             }else{

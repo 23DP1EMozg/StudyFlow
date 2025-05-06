@@ -7,7 +7,6 @@ import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
 import com.example.eksamens_vm.models.*;
 import com.example.eksamens_vm.services.GroupService;
-import com.example.eksamens_vm.services.RoomService;
 import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.services.UserService;
 import javafx.collections.FXCollections;
@@ -42,16 +41,16 @@ public class TypeConvertionManager {
         return groupTables;
     }
 
-    public ObservableList<TestTable> convertToTestTable(List<Test> tests) throws GroupNotFoundException, UserNotFoundException {
+    public ObservableList<TestTable> convertToTestTable(List<TestModel> testModels) throws GroupNotFoundException, UserNotFoundException {
         ObservableList<TestTable> testTables = FXCollections.observableArrayList();
 
-        for(int i = 0; i<tests.size(); i++){
-            Test test = tests.get(i);
-            Group group = groupService.getGroupById(test.getGroupId());
-            User teacher = userService.getUserById(test.getTeacherId());
+        for(int i = 0; i< testModels.size(); i++){
+            TestModel testModel = testModels.get(i);
+            Group group = groupService.getGroupById(testModel.getGroupId());
+            User teacher = userService.getUserById(testModel.getTeacherId());
             TestTable testTable = new TestTable(
-                test.getName(),
-                test.getTestStatus(),
+                testModel.getName(),
+                testModel.getTestStatus(),
                 teacher.getUsername(),
                 group.getName()
             );
@@ -87,8 +86,8 @@ public class TypeConvertionManager {
 
         for(int i = 0; i<testAttempts.size(); i++){
             TestAttempt testAttempt = testAttempts.get(i);
-            Test test = testService.getTestById(testAttempt.getTestId());
-            recentTestTables.add(new RecentTestTable(test.getName(), testAttempt.getGrade()));
+            TestModel testModel = testService.getTestById(testAttempt.getTestId());
+            recentTestTables.add(new RecentTestTable(testModel.getName(), testAttempt.getGrade()));
         }
         return recentTestTables;
     }
@@ -100,6 +99,16 @@ public class TypeConvertionManager {
                 .toList();
 
         return convertToTestAttemptTable(attempts);
+    }
+
+    public ObservableList<RecentTestTeacherTable> testsToRecentTestTeacherTable(List<TestModel> testModels) throws GroupNotFoundException {
+        ObservableList<RecentTestTeacherTable> recentTestTeacherTables = FXCollections.observableArrayList();
+        for(int i = 0; i< testModels.size(); i++){
+            TestModel testModel = testModels.get(i);
+            String groupName = groupService.getGroupById(testModel.getGroupId()).getName();
+            recentTestTeacherTables.add(new RecentTestTeacherTable(testModel.getName(), groupName));
+        }
+        return recentTestTeacherTables;
     }
 
 }

@@ -2,7 +2,7 @@ package com.example.eksamens_vm.controllers;
 
 import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.*;
-import com.example.eksamens_vm.models.Test;
+import com.example.eksamens_vm.models.TestModel;
 import com.example.eksamens_vm.models.TestTable;
 import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.utils.SceneManager;
@@ -77,8 +77,8 @@ public class TestsStudentController implements Initializable {
         try {
             TestViewStudentController controller = SceneManager.switchScenesWithController(event, "test_view", table.getSelectionModel().getSelectedItem().getName());
             assert controller != null;
-            Test test = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
-            controller.setTest(test);
+            TestModel testModel = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
+            controller.setTest(testModel);
 
         } catch (TestNotFoundException e) {
             throw new RuntimeException(e);
@@ -96,8 +96,8 @@ public class TestsStudentController implements Initializable {
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
         try {
-            List<Test> userTests = testService.getAllUserAssignedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
-            ObservableList<TestTable> testTable = typeConvertionManager.convertToTestTable(userTests);
+            List<TestModel> userTestModels = testService.getAllUserAssignedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
+            ObservableList<TestTable> testTable = typeConvertionManager.convertToTestTable(userTestModels);
             table.setItems(testTable);
         } catch (GroupNotFoundException | UserNotFoundException | RoomNotFoundException e) {
             throw new RuntimeException(e);

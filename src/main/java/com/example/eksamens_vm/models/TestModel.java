@@ -2,7 +2,7 @@ package com.example.eksamens_vm.models;
 
 import com.example.eksamens_vm.enums.TestStatus;
 
-public class Test {
+public class TestModel {
     private int id;
     private String name;
     private int groupId;
@@ -10,7 +10,7 @@ public class Test {
     private int teacherId;
     private TestStatus testStatus;
 
-    public Test(int id, int teacherId, int roomId, int groupId, String name, TestStatus testStatus) {
+    public TestModel(int id, int teacherId, int roomId, int groupId, String name, TestStatus testStatus) {
         this.id = id;
         this.teacherId = teacherId;
         this.roomId = roomId;

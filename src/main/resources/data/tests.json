@@ -5,7 +5,7 @@
     "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
-    "testStatus": "INCOMPLETE"
+    "testStatus": "COMPLETE"
   },
   {
     "id": 2,
@@ -21,6 +21,14 @@
     "groupId": 3,
     "roomId": 2,
     "teacherId": 1,
+    "testStatus": "INCOMPLETE"
+  },
+  {
+    "id": 4,
+    "name": "math",
+    "groupId": 1,
+    "roomId": 1,
+    "teacherId": 2,
     "testStatus": "COMPLETE"
   }
 ]

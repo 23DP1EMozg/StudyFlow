@@ -4,20 +4,17 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.exceptions.GroupNotFoundException;
 import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Test;
+import com.example.eksamens_vm.models.TestModel;
 import com.example.eksamens_vm.models.TestTable;
 import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.utils.SceneManager;
 import com.example.eksamens_vm.utils.TypeConvertionManager;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -85,8 +82,8 @@ public class TestsController implements Initializable {
         try {
             TestViewTeacherController controller = SceneManager.switchScenesWithController(event, "test_view", table.getSelectionModel().getSelectedItem().getName());
             assert controller != null;
-            Test test = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
-            controller.setTest(test);
+            TestModel testModel = testService.getRoomTestByName(table.getSelectionModel().getSelectedItem().getName(), session.getJoinedRoom().getId());
+            controller.setTest(testModel);
 
         } catch (TestNotFoundException e) {
             throw new RuntimeException(e);
@@ -103,9 +100,9 @@ public class TestsController implements Initializable {
         teacherColumn.setCellValueFactory(cellData -> cellData.getValue().getTeacherProperty());
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
-        List<Test> userTests = testService.getAllUserCreatedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
+        List<TestModel> userTestModels = testService.getAllUserCreatedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
         try {
-            ObservableList<TestTable> testTable = typeConvertionManager.convertToTestTable(userTests);
+            ObservableList<TestTable> testTable = typeConvertionManager.convertToTestTable(userTestModels);
             table.setItems(testTable);
         } catch (GroupNotFoundException | UserNotFoundException e) {
             throw new RuntimeException(e);

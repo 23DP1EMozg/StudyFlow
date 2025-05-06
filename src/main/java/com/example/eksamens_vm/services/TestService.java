@@ -14,8 +14,8 @@ public class TestService {
     private GroupService groupService = new GroupService();
     private JsonService jsonService = new JsonService();
     private int generateNewId(){
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
-        return tests.isEmpty() ? 1 : tests.getLast().getId() + 1;
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
+        return testModels.isEmpty() ? 1 : testModels.getLast().getId() + 1;
     }
 
 
@@ -27,7 +27,7 @@ public class TestService {
 
         Group group = groupService.getRoomGroupByName(groupName, session.getJoinedRoom().getId());
 
-        Test test = new Test(
+        TestModel testModel = new TestModel(
                 generateNewId(),
                 session.getLoggedInUser().getId(),
                 session.getJoinedRoom().getId(),
@@ -36,16 +36,16 @@ public class TestService {
                 TestStatus.INCOMPLETE
         );
 
-        jsonService.save(test, "tests.json", Test.class);
+        jsonService.save(testModel, "tests.json", TestModel.class);
     }
 
-    public List<Test> getAllUserCreatedTests(int userId, int roomId){
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
+    public List<TestModel> getAllUserCreatedTests(int userId, int roomId){
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
         int incompleteTestCount = 0;
-        for(int i = 0; i<tests.size(); i++){
+        for(int i = 0; i< testModels.size(); i++){
             try {
-                if(!isTestCompleted(tests.get(i).getId())){
-                    tests.get(i).setTestStatus(TestStatus.INCOMPLETE);
+                if(!isTestCompleted(testModels.get(i).getId())){
+                    testModels.get(i).setTestStatus(TestStatus.INCOMPLETE);
                     incompleteTestCount++;
                 }
             } catch (TestNotFoundException e) {
@@ -60,17 +60,17 @@ public class TestService {
         }
 
         if(incompleteTestCount > 0){
-            jsonService.saveMany(tests, "tests.json");
+            jsonService.saveMany(testModels, "tests.json");
         }
 
-        return tests.stream().filter(t -> t.getTeacherId() == userId && t.getRoomId() == roomId).collect(Collectors.toList());
+        return testModels.stream().filter(t -> t.getTeacherId() == userId && t.getRoomId() == roomId).collect(Collectors.toList());
     }
 
-    public List<Test> getAllUserAssignedTests(int userId, int roomId) throws RoomNotFoundException, UserNotInGroupException, GroupNotFoundException {
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
+    public List<TestModel> getAllUserAssignedTests(int userId, int roomId) throws RoomNotFoundException, UserNotInGroupException, GroupNotFoundException {
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
         Group group = groupService.getUsersGroupInRoom(userId, roomId);
 
-        return tests.stream().filter(t -> t.getGroupId() == group.getId()).collect(Collectors.toList());
+        return testModels.stream().filter(t -> t.getGroupId() == group.getId()).collect(Collectors.toList());
 
 
 
@@ -85,9 +85,9 @@ public class TestService {
 
     }
 
-    public Test getTestById(int testId) throws TestNotFoundException {
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
-        return tests
+    public TestModel getTestById(int testId) throws TestNotFoundException {
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
+        return testModels
                 .stream()
                 .filter(t -> t.getId() == testId)
                 .findFirst()
@@ -95,14 +95,14 @@ public class TestService {
     }
 
     public boolean testExists(int testId) throws TestNotFoundException {
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
-        return tests.stream().anyMatch(t -> t.getId() == testId);
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
+        return testModels.stream().anyMatch(t -> t.getId() == testId);
     }
 
-    public Test getRoomTestByName(String name, int roomId) throws TestNotFoundException {
-        List<Test> tests = jsonService.getAll("tests.json", Test.class);
+    public TestModel getRoomTestByName(String name, int roomId) throws TestNotFoundException {
+        List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
 
-        return tests
+        return testModels
                 .stream()
                 .filter(t -> t.getName().equals(name) && t.getRoomId() == roomId)
                 .findFirst()
@@ -165,21 +165,21 @@ public class TestService {
         checkAndUpdateTestStatus(testId);
     }
 
-    public Test checkAndUpdateTestStatus(int testId) throws TestNotFoundException, UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
-        Test test = getTestById(testId);
+    public TestModel checkAndUpdateTestStatus(int testId) throws TestNotFoundException, UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
+        TestModel testModel = getTestById(testId);
         if(isTestCompleted(testId)){
-            test.setTestStatus(TestStatus.COMPLETE);
-            List<Test> tests = jsonService.getAll("tests.json", Test.class);
+            testModel.setTestStatus(TestStatus.COMPLETE);
+            List<TestModel> testModels = jsonService.getAll("tests.json", TestModel.class);
 
-            for(int i=0; i<tests.size(); i++){
-                if(tests.get(i).getId() == test.getId()){
-                    tests.set(i, test);
-                    jsonService.saveMany(tests, "tests.json");
-                    return tests.get(i);
+            for(int i = 0; i< testModels.size(); i++){
+                if(testModels.get(i).getId() == testModel.getId()){
+                    testModels.set(i, testModel);
+                    jsonService.saveMany(testModels, "tests.json");
+                    return testModels.get(i);
                 }
             }
         }
-        return test;
+        return testModel;
     }
 
     public TestAttempt convertUserToTestAttempt(User user, int testId) {
@@ -237,8 +237,8 @@ public class TestService {
     }
 
     public boolean isTestCompleted(int testId) throws TestNotFoundException, UserNotFoundException, RoomNotFoundException, GroupNotFoundException {
-        Test test = getTestById(testId);
-        List<User> users = groupService.getAllUsersInGroup(test.getGroupId());
+        TestModel testModel = getTestById(testId);
+        List<User> users = groupService.getAllUsersInGroup(testModel.getGroupId());
         List<TestAttempt> testAttempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
                 .stream()
                 .filter(t -> t.getTestId() == testId)
@@ -294,7 +294,27 @@ public class TestService {
             sum += attempts.get(i).getGrade();
         }
 
-        return sum/attempts.size();
+        double average = sum/attempts.size();
+        return Math.round(average * 10) / 10.0;
+    }
+
+    public double getUsersAverageGrade(int userId) {
+        List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
+                .stream()
+                .filter(t -> t.getUserId() == userId)
+                .toList();
+
+        double sum = 0;
+        for (int i = 0; i < attempts.size(); i++) {
+            sum += attempts.get(i).getGrade();
+        }
+
+        if (sum == 0) {
+            return -1;
+        }
+
+        double average = sum / attempts.size();
+        return Math.round(average * 10) / 10.0;
     }
 
     public TestAttempt getTestAttempt(int testId, int userId) throws TestNotFoundException {
@@ -306,5 +326,25 @@ public class TestService {
                 .orElseThrow(() -> new TestNotFoundException("test not found!"));
     }
 
+
+    public List<TestAttempt> getAllTeachersAssignedTests(int userId) throws TestNotFoundException {
+        List<TestAttempt> testAttempts = jsonService.getAll("test_attempts.json", TestAttempt.class);
+        List<TestAttempt> result = new ArrayList<>();
+        for(int i = 0; i<testAttempts.size(); i++){
+            TestAttempt testAttempt = testAttempts.get(i);
+            TestModel testModel = getTestById(testAttempt.getTestId());
+            if(testModel.getTeacherId() == userId){
+                result.add(testAttempt);
+            }
+        }
+        return result;
+    }
+
+    public List<TestModel> getAllTeachersCompletedTestsinRoom(int roomId, int userId){
+        return jsonService.getAll("tests.json", TestModel.class)
+                .stream()
+                .filter(t -> t.getRoomId() == roomId && t.getTestStatus().equals(TestStatus.COMPLETE) && t.getTeacherId() == userId)
+                .toList();
+    }
 
 }

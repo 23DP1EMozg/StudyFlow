@@ -4,7 +4,7 @@ import com.example.eksamens_vm.data.Session;
 import com.example.eksamens_vm.enums.TestStatus;
 import com.example.eksamens_vm.exceptions.TestNotFoundException;
 import com.example.eksamens_vm.exceptions.UserNotFoundException;
-import com.example.eksamens_vm.models.Test;
+import com.example.eksamens_vm.models.TestModel;
 import com.example.eksamens_vm.models.TestAttempt;
 import com.example.eksamens_vm.services.TestService;
 import com.example.eksamens_vm.utils.SceneManager;
@@ -12,8 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-
-import java.util.List;
 
 public class TestViewStudentController {
     @FXML
@@ -47,28 +45,32 @@ public class TestViewStudentController {
     private Text percentageText;
     @FXML
     private Text placementText;
+    @FXML
+    private Text avgText;
     private TestService testService = new TestService();
     private Session session = Session.getInstance();
 
-    Test test;
+    TestModel testModel;
 
-    public void setTest(Test test) {
-        this.test = test;
-        text.setText(test.getName());
+    public void setTest(TestModel testModel) {
+        this.testModel = testModel;
+        text.setText(testModel.getName());
         initialize();
     }
 
     private void initialize() {
-        if(test.getTestStatus() == TestStatus.INCOMPLETE){
+        if(testModel.getTestStatus() == TestStatus.INCOMPLETE){
             notGradedText.setText("Tests is incomplete!");
             mainPane.setVisible(false);
         }else{
+            mainPane.setVisible(true);
+            avgText.setText("Average grade in test: " + testService.getAverageGrade(testModel.getId()));
             try {
-                TestAttempt attempt = testService.getTestAttempt(test.getId(), session.getLoggedInUser().getId());
+                TestAttempt attempt = testService.getTestAttempt(testModel.getId(), session.getLoggedInUser().getId());
                 gradeText.setText(String.valueOf(attempt.getGrade()));
                 percentageText.setText(String.valueOf(attempt.getPercent()));
-                int placement = testService.getUsersPlacementInTest(test.getId(), session.getLoggedInUser().getId());
-                int userCount = testService.getUserCountInTest(test.getId());
+                int placement = testService.getUsersPlacementInTest(testModel.getId(), session.getLoggedInUser().getId());
+                int userCount = testService.getUserCountInTest(testModel.getId());
                 placementText.setText("You came in #" + placement + " out of " + userCount + " students!");
             } catch (TestNotFoundException e) {
                 throw new RuntimeException(e);

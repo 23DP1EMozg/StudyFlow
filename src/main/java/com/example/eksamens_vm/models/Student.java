@@ -24,4 +24,6 @@ public class Student extends User{
     public void setGroup(String group) {
         this.group = group;
     }
+    
+    
 }

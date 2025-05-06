@@ -25,4 +25,12 @@ public class RoomUser {
     public void setUser(int user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "RoomUser{" +
+                "user=" + user +
+                ", group=" + group +
+                '}';
+    }
 }
