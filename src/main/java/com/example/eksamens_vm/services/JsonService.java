@@ -61,18 +61,5 @@ public class JsonService {
         }
     }
 
-    public <T> void update(String path,T object, Class<T> clazz) throws NotFoundException {
-        List<T> objects = getAll(path, clazz);
-
-        for(int i = 0; i<objects.size(); i++){
-            if(objects.get(i).equals(object)){
-                objects.set(i, object);
-                saveMany(objects, path);
-                return;
-            }
-        }
-
-        throw new NotFoundException("not found");
-    }
 
 }

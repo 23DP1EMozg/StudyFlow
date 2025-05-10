@@ -54,5 +54,12 @@
     "rooms": [
       1
     ]
+  },
+  {
+    "username": "testUser",
+    "password": "incorrectPassword",
+    "userType": "TEACHER",
+    "id": 7,
+    "rooms": []
   }
 ]

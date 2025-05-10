@@ -8,6 +8,7 @@ module com.example.eksamens_vm {
     opens com.example.eksamens_vm.models to com.google.gson, javafx.fxml;
     opens com.example.eksamens_vm.services to com.google.gson;
 
+
     exports com.example.eksamens_vm;
     exports com.example.eksamens_vm.enums;
 }

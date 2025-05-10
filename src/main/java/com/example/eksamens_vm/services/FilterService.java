@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterService {
-    UserService userService = new UserService();
-    RoomService roomService = new RoomService();
-    GroupService groupService = new GroupService();
+    public UserService userService = new UserService();
+    public RoomService roomService = new RoomService();
+    public GroupService groupService = new GroupService();
 
     public List<User> getAllUsersInGroup(String groupName, int roomId) throws GroupNotFoundException, UserNotFoundException, RoomNotFoundException {
         Room room = roomService.getRoomById(roomId);
@@ -36,23 +36,7 @@ public class FilterService {
 
     }
 
-    public List<String> getAllUsersInGroupNames(String groupName, int roomId) throws UserNotFoundException, GroupNotFoundException, RoomNotFoundException {
 
-        Room room = roomService.getRoomById(roomId);
-        Group groupByName = groupService.getRoomGroupByName(groupName, roomId);
-        List<RoomUser> roomUsers = room.getUsers()
-                .stream()
-                .filter(u -> u.getGroup() == groupByName.getId())
-                .toList();
-
-        List<String> users = new ArrayList<>();
-
-        for(int i = 0; i<roomUsers.size(); i++){
-            User user = userService.getUserById(roomUsers.get(i).getUser());
-            users.add(user.getUsername());
-        }
-        return users;
-    }
 
     public List<User> getAllTeachersInRoom(int roomId) throws RoomNotFoundException, UserNotFoundException {
         Room room = roomService.getRoomById(roomId);
@@ -93,16 +77,5 @@ public class FilterService {
         return users;
     }
 
-    public List<String> getAllStudentsInRoomNames(int roomId) throws RoomNotFoundException, UserNotFoundException {
-        Room room = roomService.getRoomById(roomId);
 
-        List<String> users = new ArrayList<>();
-        for(int i = 0; i<room.getUsers().size(); i++){
-            User user = userService.getUserById(room.getUsers().get(i).getUser());
-            if(user.getUserType() == UserRole.STUDENT){
-                users.add(user.getUsername());
-            }
-        }
-        return users;
-    }
 }

@@ -11,8 +11,8 @@ import javafx.fxml.FXML;
 
 public class RegisterService {
 
-    JsonService jsonService = new JsonService();
-    UserService userService = new UserService();
+    protected JsonService jsonService = new JsonService();
+    protected UserService userService = new UserService();
     Session session = Session.getInstance();
     public void register(User user) throws UserExistsException, InputFieldEmptyException {
 

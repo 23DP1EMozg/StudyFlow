@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 
 public class GroupService {
 
-    JsonService jsonService = new JsonService();
-    RoomService roomService = new RoomService();
-    Session session = Session.getInstance();
-    UserService userService = new UserService();
+    public JsonService jsonService = new JsonService();
+    public RoomService roomService = new RoomService();
+    public Session session = Session.getInstance();
+    public UserService userService = new UserService();
 
 
     private int generateGroupId(){
@@ -25,15 +25,6 @@ public class GroupService {
         return rooms.isEmpty() ? 1 : rooms.getLast().getId() + 1;
     }
 
-    public List<String> getAllRoomNames(){
-        List<String> names = new ArrayList<>();
-        List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
-
-        for(int i = 0; i<rooms.size(); i++){
-            names.add(rooms.get(i).getName());
-        }
-        return names;
-    }
 
     public void createGroup(String name, int roomId) throws GroupExistsException {
         List<Group> groups = jsonService.getAll("groups.json", Group.class);

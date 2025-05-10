@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 public class RoomService {
     Session session;
-    JsonService jsonService;
-    UserService userService;
+    protected JsonService jsonService;
+    protected UserService userService;
 
     public RoomService() {
         this.session = Session.getInstance();
