@@ -31,7 +31,7 @@
           <TableColumn fx:id="gradeColumn" minWidth="0.0" prefWidth="139.33334350585938" text="Grade" />
         </columns>
       </TableView>
-      <Text layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent testModels" textAlignment="CENTER" wrappingWidth="1024.0">
+      <Text layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent tests" textAlignment="CENTER" wrappingWidth="1024.0">
          <font>
             <Font size="24.0" />
          </font>
