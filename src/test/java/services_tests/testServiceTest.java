@@ -52,15 +52,7 @@ class TestServiceTest {
         new File("test_attempts.json").delete();
     }
 
-//    @Test
-//    void testCreateTestSuccessfully() throws Exception {
-//        testService.createTest("Algebra Test", "Group A");
-//        List<TestModel> tests = jsonService.getAll("tests.json", TestModel.class);
-//
-//        assertEquals(1, tests.size());
-//        assertEquals("Algebra Test", tests.get(0).getName());
-//        assertEquals(TestStatus.INCOMPLETE, tests.get(0).getTestStatus());
-//    }
+
 
     @Test
     void testCreateTestWithEmptyFields() {
@@ -73,19 +65,7 @@ class TestServiceTest {
         });
     }
 
-//    @Test
-//    void testSaveTestAttemptCorrectly() throws Exception {
-//        testService.createTest("Math Test", "Group A");
-//        TestModel test = jsonService.getAll("tests.json", TestModel.class).get(0);
-//
-//        testService.saveTestAttempt(test.getId(), 2, "87.5");
-//
-//        List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class);
-//        assertEquals(1, attempts.size());
-//        assertEquals(2, attempts.get(0).getUserId());
-//        assertEquals(9, attempts.get(0).getGrade());
-//        assertEquals(87.5, attempts.get(0).getPercent());
-//    }
+
 
     @Test
     void testGetGradeFromPercentage() {
@@ -101,10 +81,5 @@ class TestServiceTest {
         });
     }
 
-//    @Test
-//    void testIsTestCompletedFalseInitially() throws Exception {
-//        testService.createTest("Science Test", "Group A");
-//        TestModel test = jsonService.getAll("tests.json", TestModel.class).get(0);
-//        assertFalse(testService.isTestCompleted(test.getId()));
-//    }
+
 }

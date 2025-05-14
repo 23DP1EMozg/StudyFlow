@@ -72,22 +72,7 @@ public class UserServiceTest {
         userService = new UserService();
     }
 
-//    // Test generateNewId()
-//    @Test
-//    public void testGenerateNewId() {
-//        int newId = userService.generateNewId();
-//
-//        // Assert that the new ID is the last ID + 1
-//        assertEquals(3, newId);
-//    }
 
-    // Test userExists(String username)
-//    @Test
-//    public void testUserExistsWithUsername() {
-//        boolean exists = userService.userExists("john_doe");
-//
-//        assertTrue(exists);
-//    }
 
     // Test userExists(int userId)
     @Test
@@ -97,16 +82,6 @@ public class UserServiceTest {
         assertTrue(exists);
     }
 
-    // Test getUserById()
-//    @Test
-//    public void testGetUserById() throws UserNotFoundException {
-//        User user = userService.getUserById(1);
-//
-//        assertNotNull(user);
-//        assertEquals(1, user.getId());
-//        assertEquals("john_doe", user.getUsername());
-//        assertEquals(UserRole.STUDENT, user.getUserType());
-//    }
 
     // Test getUserById throws UserNotFoundException
     @Test
@@ -114,15 +89,7 @@ public class UserServiceTest {
         assertThrows(UserNotFoundException.class, () -> userService.getUserById(99));
     }
 
-    // Test getUserByUsername()
- //   @Test
-//    public void testGetUserByUsername() {
-//        User user = userService.getUserByUsername("jane_doe");
-//
-//        assertNotNull(user);
-//        assertEquals("jane_doe", user.getUsername());
-//        assertEquals(UserRole.STUDENT, user.getUserType());
-//    }
+
 
     // Test logout()
     @Test

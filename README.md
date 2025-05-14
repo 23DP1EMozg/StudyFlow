@@ -94,3 +94,6 @@ Iegūst visus studentus no istabas
     }
 ```
 
+## Saites
+Mājaslapa- https://study-flow-website-s1bq.vercel.app/
+

@@ -38,21 +38,7 @@ class LoginServiceTest {
         loginService = new LoginService();
     }
 
-//    @Test
-//    void testSuccessfulLogin() {
-//        String username = "testUser";
-//        String password = "validPassword";
-//
-//        try {
-//            User loggedInUser = loginService.login(username, password);
-//            // Assertions for successful login
-//            assertNotNull(loggedInUser, "User should not be null");
-//            assertEquals("testUser", loggedInUser.getUsername(), "Username should match");
-//            assertEquals("validPassword", loggedInUser.getPassword(), "Password should match");
-//        } catch (Exception e) {
-//            fail("Exception should not be thrown during successful login: " + e.getMessage());
-//        }
-//    }
+
 
 
     @Test

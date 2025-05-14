@@ -65,28 +65,7 @@ class JsonServiceTest {
         Files.deleteIfExists(Paths.get(TEST_DIR, TEST_FILE));
     }
 
-//    @Test
-//    void saveAndGetAll_shouldPersistAndRetrieveData() {
-//        TestUser user = new TestUser(1, "test", "pw", UserRole.STUDENT, List.of(1, 2));
-//        jsonService.save(user, TEST_FILE, TestUser.class);
-//
-//        List<TestUser> users = jsonService.getAll(TEST_FILE, TestUser.class);
-//        assertEquals(1, users.size());
-//        assertEquals(user, users.get(0));
-//    }
 
-//    @Test
-//    void saveMany_shouldOverwriteAndRetrieveList() {
-//        List<TestUser> users = List.of(
-//                new TestUser(1, "user1", "pw1", UserRole.STUDENT, List.of(1)),
-//                new TestUser(2, "user2", "pw2", UserRole.TEACHER, List.of(2))
-//        );
-//        jsonService.saveMany(users, TEST_FILE);
-//
-//        List<TestUser> loaded = jsonService.getAll(TEST_FILE, TestUser.class);
-//        assertEquals(2, loaded.size());
-//        assertEquals(users, loaded);
-//    }
 
     @Test
     void getAll_onNonexistentFile_shouldReturnEmptyList() throws Exception {
@@ -99,14 +78,4 @@ class JsonServiceTest {
         assertTrue(result.isEmpty());
     }
 
-//    @Test
-//    void getAll_onEmptyFile_shouldReturnEmptyList() throws Exception {
-//        // Test when the file exists but is empty
-//        Path path = Paths.get(TEST_DIR, TEST_FILE);
-//        Files.createFile(path);  // Create an empty file
-//
-//        List<TestUser> result = jsonService.getAll(TEST_FILE, TestUser.class);
-//        assertNotNull(result);
-//        assertTrue(result.isEmpty());
-//    }
 }

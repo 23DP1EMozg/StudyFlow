@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Teacher1Room",
+    "users": [
+      {
+        "user": 3,
+        "group": 1
+      }
+    ],
+    "owner": 1,
+    "joinRequests": [
+      4
+    ],
+    "joinCode": 55556887
+  },
+  {
+    "id": 2,
+    "name": "Teacher1Room2",
+    "users": [],
+    "owner": 1,
+    "joinRequests": [
+      5,
+      6
+    ],
+    "joinCode": 89707254
+  }
+]

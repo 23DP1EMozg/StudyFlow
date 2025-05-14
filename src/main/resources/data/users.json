@@ -1,0 +1,49 @@
+[
+  {
+    "username": "teacher1",
+    "password": "1",
+    "userType": "TEACHER",
+    "id": 1,
+    "rooms": [
+      1,
+      2
+    ]
+  },
+  {
+    "username": "teacher2",
+    "password": "1",
+    "userType": "TEACHER",
+    "id": 2,
+    "rooms": []
+  },
+  {
+    "username": "reinis",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 3,
+    "rooms": [
+      1
+    ]
+  },
+  {
+    "username": "kristaps",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 4,
+    "rooms": []
+  },
+  {
+    "username": "mailo",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 5,
+    "rooms": []
+  },
+  {
+    "username": "adrians",
+    "password": "1",
+    "userType": "STUDENT",
+    "id": 6,
+    "rooms": []
+  }
+]
