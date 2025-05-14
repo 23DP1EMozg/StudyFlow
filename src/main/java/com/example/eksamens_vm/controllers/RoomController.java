@@ -57,7 +57,7 @@ public class RoomController implements Initializable {
 
         List<TestAttempt> attempts = testService.getAllUsersCompletedTests(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
 
-        double avgerageGrade = testService.getUsersAverageGrade(session.getLoggedInUser().getId());
+        double avgerageGrade = testService.getUsersAverageGrade(session.getLoggedInUser().getId(), session.getJoinedRoom().getId());
         if(avgerageGrade == -1){
             avgText.setText("You have no average grade");
         }else{

@@ -5,6 +5,14 @@
     "groupId": 1,
     "roomId": 1,
     "teacherId": 1,
+    "testStatus": "INCOMPLETE"
+  },
+  {
+    "id": 2,
+    "name": "dirs",
+    "groupId": 2,
+    "roomId": 3,
+    "teacherId": 7,
     "testStatus": "COMPLETE"
   }
 ]

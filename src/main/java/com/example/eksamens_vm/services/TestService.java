@@ -298,10 +298,10 @@ public class TestService {
         return Math.round(average * 10) / 10.0;
     }
 
-    public double getUsersAverageGrade(int userId) {
+    public double getUsersAverageGrade(int userId, int roomId) {
         List<TestAttempt> attempts = jsonService.getAll("test_attempts.json", TestAttempt.class)
                 .stream()
-                .filter(t -> t.getUserId() == userId)
+                .filter(t -> t.getUserId() == userId && t.getRoomId() == roomId)
                 .toList();
 
         double sum = 0;

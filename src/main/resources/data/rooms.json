@@ -6,6 +6,10 @@
       {
         "user": 3,
         "group": 1
+      },
+      {
+        "user": 2,
+        "group": 0
       }
     ],
     "owner": 1,
@@ -24,5 +28,18 @@
       6
     ],
     "joinCode": 89707254
+  },
+  {
+    "id": 3,
+    "name": "room",
+    "users": [
+      {
+        "user": 3,
+        "group": 2
+      }
+    ],
+    "owner": 7,
+    "joinRequests": [],
+    "joinCode": 50669175
   }
 ]

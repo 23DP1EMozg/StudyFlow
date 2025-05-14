@@ -239,8 +239,11 @@ public class RoomService {
         List<Room> rooms = jsonService.getAll("rooms.json", Room.class);
 
         for(int i = 0; i<user.getRooms().size(); i++){
-            if(user.getRooms().get(i) == rooms.get(i).getId()){
-                names.add(rooms.get(i).getName());
+
+            for(int j = 0; j<rooms.size(); j++){
+                if(user.getRooms().get(i) == rooms.get(j).getId()){
+                    names.add(rooms.get(j).getName());
+                }
             }
         }
         return names;
