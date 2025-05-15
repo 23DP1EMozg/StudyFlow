@@ -34,6 +34,9 @@
       <Label layoutX="134.0" layoutY="263.0" prefHeight="17.0" prefWidth="99.0" text="Change group" />
       <Button layoutX="125.0" layoutY="353.0" mnemonicParsing="false" onAction="#saveGroup" prefHeight="25.0" prefWidth="99.0" text="Save" />
       <ChoiceBox fx:id="menu" layoutX="100.0" layoutY="293.0" prefWidth="150.0" />
-      <Text fx:id="error" fill="RED" layoutX="99.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="150.00000000000006" />
+      <Text fx:id="error" fill="RED" layoutX="66.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="218.00001525878912">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
    </children>
 </AnchorPane>
