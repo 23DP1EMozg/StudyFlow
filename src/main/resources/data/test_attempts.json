@@ -2,15 +2,8 @@
   {
     "userId": 3,
     "testId": 1,
-    "percent": 78.0,
-    "grade": 8,
+    "percent": 100.0,
+    "grade": 10,
     "roomId": 1
-  },
-  {
-    "userId": 3,
-    "testId": 2,
-    "percent": 1.0,
-    "grade": 1,
-    "roomId": 3
   }
 ]

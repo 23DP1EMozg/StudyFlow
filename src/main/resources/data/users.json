@@ -48,14 +48,5 @@
     "userType": "STUDENT",
     "id": 6,
     "rooms": []
-  },
-  {
-    "username": "kakadirsaaa",
-    "password": "sukapimpi",
-    "userType": "TEACHER",
-    "id": 7,
-    "rooms": [
-      3
-    ]
   }
 ]

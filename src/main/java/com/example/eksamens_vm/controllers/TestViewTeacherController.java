@@ -94,7 +94,7 @@ public class TestViewTeacherController{
             User user = userService.getUserByUsername(table.getSelectionModel().getSelectedItem().getStudent());
             if(table.getSelectionModel().getSelectedItem().getGrade() != -1) {
                 System.out.println("UPDATE");
-                testService.updateTestAttempt(user.getId(), testModel.getId(), Double.parseDouble(percentageInput.getText()));
+                testService.updateTestAttempt(user.getId(), testModel.getId(), percentageInput.getText());
             }else{
                 System.out.println("CREATE");
                 testService.saveTestAttempt(testModel.getId(),user.getId(), percentageInput.getText());

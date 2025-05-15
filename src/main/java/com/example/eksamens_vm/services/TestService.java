@@ -151,6 +151,11 @@ public class TestService {
             throw new InputMismatchException("invalid percentage");
         }
 
+        if(Double.parseDouble(percentage) < 0 || Double.parseDouble(percentage) > 100){
+            throw new InputMismatchException("invalid percentage");
+        }
+
+
         TestAttempt testAttempt = new TestAttempt(
                 userId,
                 getGradeFromPercentage(Double.parseDouble(percentage)),
@@ -222,13 +227,21 @@ public class TestService {
         return mergedAttempts;
     }
 
-    public void updateTestAttempt(int userId, int testId, double percentage) throws TestNotFoundException {
+    public void updateTestAttempt(int userId, int testId, String percentage) throws TestNotFoundException {
         List<TestAttempt> testAttempts = jsonService.getAll("test_attempts.json", TestAttempt.class);
+
+        if(!isNumeric(percentage) || percentage.isBlank()){
+            throw new InputMismatchException("invalid percentage");
+        }
+
+        if(Double.parseDouble(percentage) < 0 || Double.parseDouble(percentage) > 100){
+            throw new InputMismatchException("invalid percentage");
+        }
 
         for(int i = 0; i< testAttempts.size(); i++){
             TestAttempt testAttempt1 = testAttempts.get(i);
             if(testAttempt1.getTestId() == testId && testAttempt1.getUserId() == userId){
-                testAttempts.set(i, new TestAttempt(userId, getGradeFromPercentage(percentage), testId, percentage, session.getJoinedRoom().getId()));
+                testAttempts.set(i, new TestAttempt(userId, getGradeFromPercentage(Double.parseDouble(percentage)), testId, Double.parseDouble(percentage), session.getJoinedRoom().getId()));
                 break;
             }
         }
